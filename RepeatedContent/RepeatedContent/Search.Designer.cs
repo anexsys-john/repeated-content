@@ -30,6 +30,8 @@
         {
             this.BtnSearch = new System.Windows.Forms.Button();
             this.tbFileInput = new System.Windows.Forms.TextBox();
+            this.tbRepeatedContent = new System.Windows.Forms.TextBox();
+            this.bwRepeatedSearch = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // BtnSearch
@@ -46,12 +48,27 @@
             // 
             this.tbFileInput.Location = new System.Drawing.Point(430, 13);
             this.tbFileInput.Name = "tbFileInput";
-            this.tbFileInput.Size = new System.Drawing.Size(1433, 38);
+            this.tbFileInput.Size = new System.Drawing.Size(981, 38);
             this.tbFileInput.TabIndex = 1;
+            // 
+            // tbRepeatedContent
+            // 
+            this.tbRepeatedContent.Location = new System.Drawing.Point(430, 69);
+            this.tbRepeatedContent.Multiline = true;
+            this.tbRepeatedContent.Name = "tbRepeatedContent";
+            this.tbRepeatedContent.ReadOnly = true;
+            this.tbRepeatedContent.Size = new System.Drawing.Size(981, 370);
+            this.tbRepeatedContent.TabIndex = 2;
+            // 
+            // bwRepeatedSearch
+            // 
+            this.bwRepeatedSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRepeatedSearch_DoWork);
+            this.bwRepeatedSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRepeatedSearch_RunWorkerCompleted);
             // 
             // Search
             // 
             this.ClientSize = new System.Drawing.Size(2020, 701);
+            this.Controls.Add(this.tbRepeatedContent);
             this.Controls.Add(this.tbFileInput);
             this.Controls.Add(this.BtnSearch);
             this.Name = "Search";
@@ -64,6 +81,8 @@
 
         private System.Windows.Forms.Button BtnSearch;
         private System.Windows.Forms.TextBox tbFileInput;
+        private System.Windows.Forms.TextBox tbRepeatedContent;
+        private System.ComponentModel.BackgroundWorker bwRepeatedSearch;
     }
 }
 

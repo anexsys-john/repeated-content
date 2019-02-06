@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace RepeatedContent
 {
-    class FileSearcher
+    class FileSplitter
     {
         private readonly string directoryPath; // this is a directory containing .txt files
         private string[] files;
-        public List<string> Lines = new List<string>();
 
-        public FileSearcher(string filePath)
+        public FileSplitter(string filePath)
         {
             directoryPath = filePath;
         }
 
-        public void GetLines()
+        public List<string> GetLines()
         {
+            List<string> lines = new List<string>();
             files = Directory.GetFiles(directoryPath);
             foreach (string file in files)
             {
@@ -23,10 +23,11 @@ namespace RepeatedContent
                 {
                     while (sr.Peek() >= 0)
                     {
-                        Lines.Add(sr.ReadLine());
+                        lines.Add(sr.ReadLine());
                     }
                 }
             }
+            return lines;
         }
     }
 }

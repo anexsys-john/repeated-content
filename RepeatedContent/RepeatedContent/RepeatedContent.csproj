@@ -46,7 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileSearcher.cs" />
+    <Compile Include="FileSplitter.cs" />
+    <Compile Include="RepetitionSearcher.cs" />
     <Compile Include="Search.cs">
       <SubType>Form</SubType>
     </Compile>
