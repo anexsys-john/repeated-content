@@ -32,6 +32,8 @@
             this.tbFileInput = new System.Windows.Forms.TextBox();
             this.tbRepeatedContent = new System.Windows.Forms.TextBox();
             this.bwRepeatedSearch = new System.ComponentModel.BackgroundWorker();
+            this.pbRepeatedSearchProgress = new System.Windows.Forms.ProgressBar();
+            this.lbProgressPercentage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // BtnSearch
@@ -48,26 +50,46 @@
             // 
             this.tbFileInput.Location = new System.Drawing.Point(430, 13);
             this.tbFileInput.Name = "tbFileInput";
-            this.tbFileInput.Size = new System.Drawing.Size(981, 38);
+            this.tbFileInput.Size = new System.Drawing.Size(659, 38);
             this.tbFileInput.TabIndex = 1;
             // 
             // tbRepeatedContent
             // 
-            this.tbRepeatedContent.Location = new System.Drawing.Point(430, 69);
+            this.tbRepeatedContent.Location = new System.Drawing.Point(430, 115);
             this.tbRepeatedContent.Multiline = true;
             this.tbRepeatedContent.Name = "tbRepeatedContent";
             this.tbRepeatedContent.ReadOnly = true;
-            this.tbRepeatedContent.Size = new System.Drawing.Size(981, 370);
+            this.tbRepeatedContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbRepeatedContent.Size = new System.Drawing.Size(659, 251);
             this.tbRepeatedContent.TabIndex = 2;
             // 
             // bwRepeatedSearch
             // 
+            this.bwRepeatedSearch.WorkerReportsProgress = true;
             this.bwRepeatedSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRepeatedSearch_DoWork);
+            this.bwRepeatedSearch.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwRepeatedSearch_ProgressChanged);
             this.bwRepeatedSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRepeatedSearch_RunWorkerCompleted);
+            // 
+            // pbRepeatedSearchProgress
+            // 
+            this.pbRepeatedSearchProgress.Location = new System.Drawing.Point(430, 58);
+            this.pbRepeatedSearchProgress.Name = "pbRepeatedSearchProgress";
+            this.pbRepeatedSearchProgress.Size = new System.Drawing.Size(553, 35);
+            this.pbRepeatedSearchProgress.TabIndex = 3;
+            // 
+            // lbProgressPercentage
+            // 
+            this.lbProgressPercentage.AutoSize = true;
+            this.lbProgressPercentage.Location = new System.Drawing.Point(989, 58);
+            this.lbProgressPercentage.Name = "lbProgressPercentage";
+            this.lbProgressPercentage.Size = new System.Drawing.Size(0, 31);
+            this.lbProgressPercentage.TabIndex = 4;
             // 
             // Search
             // 
-            this.ClientSize = new System.Drawing.Size(2020, 701);
+            this.ClientSize = new System.Drawing.Size(1526, 491);
+            this.Controls.Add(this.lbProgressPercentage);
+            this.Controls.Add(this.pbRepeatedSearchProgress);
             this.Controls.Add(this.tbRepeatedContent);
             this.Controls.Add(this.tbFileInput);
             this.Controls.Add(this.BtnSearch);
@@ -83,6 +105,8 @@
         private System.Windows.Forms.TextBox tbFileInput;
         private System.Windows.Forms.TextBox tbRepeatedContent;
         private System.ComponentModel.BackgroundWorker bwRepeatedSearch;
+        private System.Windows.Forms.ProgressBar pbRepeatedSearchProgress;
+        private System.Windows.Forms.Label lbProgressPercentage;
     }
 }
 

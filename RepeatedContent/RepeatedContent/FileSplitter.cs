@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace RepeatedContent
 {
@@ -13,10 +14,12 @@ namespace RepeatedContent
             directoryPath = filePath;
         }
 
-        public List<string> GetLines()
+        public List<string> GetLines(BackgroundWorker worker)
         {
             List<string> lines = new List<string>();
             files = Directory.GetFiles(directoryPath);
+            int count = files.Length;
+            int i = 1;
             foreach (string file in files)
             {
                 using (StreamReader sr = new StreamReader(file))
@@ -26,6 +29,8 @@ namespace RepeatedContent
                         lines.Add(sr.ReadLine());
                     }
                 }
+                worker.ReportProgress((i / count) * 100);
+                i++;
             }
             return lines;
         }

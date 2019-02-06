@@ -28,19 +28,29 @@ namespace RepeatedContent
 
         private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
         {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            e.Result = searchForRepeats(worker, e);
+        }
+
+        private string searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
+        {
             string filepath = tbFileInput.Text;
             FileSplitter splitter = new FileSplitter(filepath);
-            RepetitionSearcher searcher = new RepetitionSearcher(splitter.GetLines());
+            RepetitionSearcher searcher = new RepetitionSearcher(splitter.GetLines(worker));
             List<string> repeatedLines = searcher.GetRepeatedLines();
-            e.Result = repeatedLines;
+            return string.Join(Environment.NewLine, repeatedLines);
         }
 
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            foreach (string line in ((IEnumerable<string>)e.Result).Cast<object>().ToList())
-            {
-                tbRepeatedContent.AppendText(line + Environment.NewLine);
-            }
+            tbRepeatedContent.AppendText(e.Result.ToString());
+        }
+
+        private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            int completion = e.ProgressPercentage;
+            pbRepeatedSearchProgress.Value = completion;
+            lbProgressPercentage.Text = $"{completion.ToString()} %";
         }
     }
 }
