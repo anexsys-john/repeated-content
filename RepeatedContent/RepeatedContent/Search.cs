@@ -15,7 +15,6 @@ namespace RepeatedContent
         public Search()
         {
             InitializeComponent();
-            
         }
 
         private void tbFileInput_Enter(object sender, EventArgs e)
@@ -48,13 +47,15 @@ namespace RepeatedContent
             }
         }
 
+        private void btnRemoveText_Click(object sender, EventArgs e)
+        {
+        }
+
         private string searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
             string filepath = tbFileInput.Text;
-            FileSplitter splitter = new FileSplitter(filepath);
-            RepetitionSearcher searcher = new RepetitionSearcher(splitter.GetLines(worker));
-            List<string> repeatedLines = searcher.GetRepeatedLines();
-            return string.Join(Environment.NewLine, repeatedLines);
+            FileHandler handler = new FileHandler(filepath);
+            return string.Join(Environment.NewLine, handler.GetRepeatedLines(worker));
         }
 
         private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
@@ -72,7 +73,6 @@ namespace RepeatedContent
         {
             int completion = e.ProgressPercentage;
             pbRepeatedSearchProgress.Value = completion;
-            lbProgressPercentage.Text = $"{completion.ToString()} %";
         }
     }
 }

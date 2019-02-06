@@ -33,9 +33,9 @@
             this.tbOutputWindow = new System.Windows.Forms.TextBox();
             this.bwRepeatedSearch = new System.ComponentModel.BackgroundWorker();
             this.pbRepeatedSearchProgress = new System.Windows.Forms.ProgressBar();
-            this.lbProgressPercentage = new System.Windows.Forms.Label();
             this.btnRemoveText = new System.Windows.Forms.Button();
             this.btnDirectorySearch = new System.Windows.Forms.Button();
+            this.tbRemoveTextInput = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // BtnSearch
@@ -81,25 +81,18 @@
             // 
             this.pbRepeatedSearchProgress.Location = new System.Drawing.Point(12, 58);
             this.pbRepeatedSearchProgress.Name = "pbRepeatedSearchProgress";
-            this.pbRepeatedSearchProgress.Size = new System.Drawing.Size(553, 35);
+            this.pbRepeatedSearchProgress.Size = new System.Drawing.Size(1087, 35);
             this.pbRepeatedSearchProgress.TabIndex = 3;
-            // 
-            // lbProgressPercentage
-            // 
-            this.lbProgressPercentage.AutoSize = true;
-            this.lbProgressPercentage.Location = new System.Drawing.Point(989, 58);
-            this.lbProgressPercentage.Name = "lbProgressPercentage";
-            this.lbProgressPercentage.Size = new System.Drawing.Size(0, 31);
-            this.lbProgressPercentage.TabIndex = 4;
             // 
             // btnRemoveText
             // 
-            this.btnRemoveText.Location = new System.Drawing.Point(681, 497);
+            this.btnRemoveText.Location = new System.Drawing.Point(681, 470);
             this.btnRemoveText.Name = "btnRemoveText";
             this.btnRemoveText.Size = new System.Drawing.Size(418, 37);
             this.btnRemoveText.TabIndex = 5;
             this.btnRemoveText.Text = "Remove Text";
             this.btnRemoveText.UseVisualStyleBackColor = true;
+            this.btnRemoveText.Click += new System.EventHandler(this.btnRemoveText_Click);
             // 
             // btnDirectorySearch
             // 
@@ -111,12 +104,19 @@
             this.btnDirectorySearch.UseVisualStyleBackColor = true;
             this.btnDirectorySearch.Click += new System.EventHandler(this.btnDirectorySearch_Click);
             // 
+            // tbRemoveTextInput
+            // 
+            this.tbRemoveTextInput.Location = new System.Drawing.Point(12, 469);
+            this.tbRemoveTextInput.Name = "tbRemoveTextInput";
+            this.tbRemoveTextInput.Size = new System.Drawing.Size(652, 38);
+            this.tbRemoveTextInput.TabIndex = 7;
+            // 
             // Search
             // 
             this.ClientSize = new System.Drawing.Size(1196, 621);
+            this.Controls.Add(this.tbRemoveTextInput);
             this.Controls.Add(this.btnDirectorySearch);
             this.Controls.Add(this.btnRemoveText);
-            this.Controls.Add(this.lbProgressPercentage);
             this.Controls.Add(this.pbRepeatedSearchProgress);
             this.Controls.Add(this.tbOutputWindow);
             this.Controls.Add(this.tbFileInput);
@@ -134,9 +134,9 @@
         private System.Windows.Forms.TextBox tbOutputWindow;
         private System.ComponentModel.BackgroundWorker bwRepeatedSearch;
         private System.Windows.Forms.ProgressBar pbRepeatedSearchProgress;
-        private System.Windows.Forms.Label lbProgressPercentage;
         private System.Windows.Forms.Button btnRemoveText;
         private System.Windows.Forms.Button btnDirectorySearch;
+        private System.Windows.Forms.TextBox tbRemoveTextInput;
     }
 }
 
