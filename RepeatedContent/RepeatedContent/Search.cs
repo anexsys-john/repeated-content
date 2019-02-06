@@ -15,21 +15,37 @@ namespace RepeatedContent
         public Search()
         {
             InitializeComponent();
+            
+        }
+
+        private void tbFileInput_Enter(object sender, EventArgs e)
+        {
+            tbFileInput.ForeColor = Color.Black;
+            tbFileInput.Clear();
+        }
+
+        private void tbfileInput_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFileInput.Text))
+            {
+                tbFileInput.Text = "Input Directory Here...";
+            }
+        }
+
+        private void btnDirectorySearch_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            DialogResult result = folderDialog.ShowDialog();
+            tbFileInput.Text = folderDialog.SelectedPath;
         }
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            tbRepeatedContent.Text = "";
+            tbOutputWindow.Text = "";
             if (bwRepeatedSearch.IsBusy == false)
             {
                 bwRepeatedSearch.RunWorkerAsync();
             }
-        }
-
-        private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            e.Result = searchForRepeats(worker, e);
         }
 
         private string searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
@@ -41,9 +57,15 @@ namespace RepeatedContent
             return string.Join(Environment.NewLine, repeatedLines);
         }
 
+        private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            e.Result = searchForRepeats(worker, e);
+        }
+
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            tbRepeatedContent.AppendText(e.Result.ToString());
+            tbOutputWindow.AppendText(e.Result.ToString());
         }
 
         private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
