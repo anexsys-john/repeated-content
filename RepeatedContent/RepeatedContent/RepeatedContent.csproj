@@ -48,8 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileHandler.cs" />
-    <Compile Include="FileSplitter.cs" />
-    <Compile Include="RepetitionSearcher.cs" />
     <Compile Include="Search.cs">
       <SubType>Form</SubType>
     </Compile>

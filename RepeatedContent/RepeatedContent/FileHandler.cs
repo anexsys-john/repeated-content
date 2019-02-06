@@ -11,36 +11,59 @@ namespace RepeatedContent
     class FileHandler
     {
         private string DirectoryPath;
-        private string[] files;
-        private List<string> Lines = new List<string>();
+        private string[] Files;
+        private List<string> LinesFromFiles = new List<string>();
 
         public FileHandler(string directoryPath)
         {
             DirectoryPath = directoryPath;
+            Files = Directory.GetFiles(DirectoryPath);
         }
 
         public List<string> GetRepeatedLines(BackgroundWorker worker)
         {
             GetLines(worker);
-            return Lines.GroupBy(x => x)
+            return LinesFromFiles.GroupBy(x => x)
                         .Where(group => group.Count() > 1)
                         .Select(group => group.Key)
                         .ToList();
         }
 
-        public void GetLines(BackgroundWorker worker)
+        public void RemoveLinesFromFiles(List<string> testLines)
         {
-            Lines = new List<string>();
-            files = Directory.GetFiles(DirectoryPath);
-            int count = files.Length;
+            foreach (string file in Files)
+            {
+                using (StreamWriter sw = new StreamWriter("test"))
+                {
+                    using (StreamReader sr = new StreamReader(file))
+                    {
+                        string line;
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            if (!testLines.Contains(line))
+                            {
+                                sw.WriteLine(line);
+                            }
+                        }
+                    }
+                }
+                File.Delete(file);
+                File.Move("test", file);
+            }
+        }
+
+        private void GetLines(BackgroundWorker worker)
+        {
+            LinesFromFiles = new List<string>();
+            int count = Files.Length;
             int i = 1;
-            foreach (string file in files)
+            foreach (string file in Files)
             {
                 using (StreamReader sr = new StreamReader(file))
                 {
                     while (sr.Peek() >= 0)
                     {
-                        Lines.Add(sr.ReadLine());
+                        LinesFromFiles.Add(sr.ReadLine());
                     }
                 }
                 worker.ReportProgress((i / count) * 100);

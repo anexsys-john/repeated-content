@@ -36,6 +36,7 @@
             this.btnRemoveText = new System.Windows.Forms.Button();
             this.btnDirectorySearch = new System.Windows.Forms.Button();
             this.tbRemoveTextInput = new System.Windows.Forms.TextBox();
+            this.bwRemoveLines = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // BtnSearch
@@ -86,7 +87,7 @@
             // 
             // btnRemoveText
             // 
-            this.btnRemoveText.Location = new System.Drawing.Point(681, 470);
+            this.btnRemoveText.Location = new System.Drawing.Point(681, 545);
             this.btnRemoveText.Name = "btnRemoveText";
             this.btnRemoveText.Size = new System.Drawing.Size(418, 37);
             this.btnRemoveText.TabIndex = 5;
@@ -107,9 +108,17 @@
             // tbRemoveTextInput
             // 
             this.tbRemoveTextInput.Location = new System.Drawing.Point(12, 469);
+            this.tbRemoveTextInput.Multiline = true;
             this.tbRemoveTextInput.Name = "tbRemoveTextInput";
-            this.tbRemoveTextInput.Size = new System.Drawing.Size(652, 38);
+            this.tbRemoveTextInput.Size = new System.Drawing.Size(652, 113);
             this.tbRemoveTextInput.TabIndex = 7;
+            // 
+            // bwRemoveLines
+            // 
+            this.bwRemoveLines.WorkerReportsProgress = true;
+            this.bwRemoveLines.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRemoveLines_DoWork);
+            this.bwRemoveLines.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwRemoveLines_ProgressChanged);
+            this.bwRemoveLines.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRemoveLines_RunWorkerCompleted);
             // 
             // Search
             // 
@@ -137,6 +146,7 @@
         private System.Windows.Forms.Button btnRemoveText;
         private System.Windows.Forms.Button btnDirectorySearch;
         private System.Windows.Forms.TextBox tbRemoveTextInput;
+        private System.ComponentModel.BackgroundWorker bwRemoveLines;
     }
 }
 

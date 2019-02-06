@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,8 @@ namespace RepeatedContent
 {
     public partial class Search : Form
     {
+        private FileHandler handler;
+
         public Search()
         {
             InitializeComponent();
@@ -40,7 +43,7 @@ namespace RepeatedContent
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {
-            tbOutputWindow.Text = "";
+            tbOutputWindow.Clear();
             if (bwRepeatedSearch.IsBusy == false)
             {
                 bwRepeatedSearch.RunWorkerAsync();
@@ -49,13 +52,26 @@ namespace RepeatedContent
 
         private void btnRemoveText_Click(object sender, EventArgs e)
         {
+            tbOutputWindow.Clear();
+            if (bwRemoveLines.IsBusy == false)
+            {
+                bwRemoveLines.RunWorkerAsync();
+            }
         }
 
         private string searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            string filepath = tbFileInput.Text;
-            FileHandler handler = new FileHandler(filepath);
+            handler = new FileHandler(tbFileInput.Text);
             return string.Join(Environment.NewLine, handler.GetRepeatedLines(worker));
+        }
+
+        private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
+        {
+            handler = new FileHandler(tbFileInput.Text);
+            string input = tbRemoveTextInput.Text;
+            Regex newLinesRegex = new Regex(@"\r\n|\n|\r", RegexOptions.Singleline);
+            List<string> lines = newLinesRegex.Split(input).ToList();
+            handler.RemoveLinesFromFiles(lines);
         }
 
         private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
@@ -73,6 +89,20 @@ namespace RepeatedContent
         {
             int completion = e.ProgressPercentage;
             pbRepeatedSearchProgress.Value = completion;
+        }
+
+        private void bwRemoveLines_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            removeLines(worker, e);
+        }
+
+        private void bwRemoveLines_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+        }
+
+        private void bwRemoveLines_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
         }
     }
 }
