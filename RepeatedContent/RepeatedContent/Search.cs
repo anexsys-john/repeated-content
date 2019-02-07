@@ -62,6 +62,16 @@ namespace RepeatedContent
             display.MoveSelection(lbxLinesToRemove, lbxLinesFound);
         }
 
+        private void btnFoundToRemoveAll_Click(object sender, EventArgs e)
+        {
+            display.MoveAll(lbxLinesFound, lbxLinesToRemove);
+        }
+
+        private void btnRemoveToFoundAll_Click(object sender, EventArgs e)
+        {
+            display.MoveAll(lbxLinesToRemove, lbxLinesFound);
+        }
+
         private void btnRemoveText_Click(object sender, EventArgs e)
         {
             tbOutputWindow.Clear();

@@ -48,5 +48,11 @@ namespace RepeatedContent
             AddLinesToListBox(to, selection);
             RemoveLinesFromListBox(from, selection);
         }
+
+        public void MoveAll(ListBox from, ListBox to)
+        {
+            AddLinesToListBox(to, from.Items.Cast<Line>().ToList());
+            from.DataSource = null;
+        }
     }
 }

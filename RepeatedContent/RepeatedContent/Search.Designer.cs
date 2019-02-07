@@ -164,6 +164,7 @@
             this.btnFoundToRemoveAll.TabIndex = 11;
             this.btnFoundToRemoveAll.Text = ">>";
             this.btnFoundToRemoveAll.UseVisualStyleBackColor = true;
+            this.btnFoundToRemoveAll.Click += new System.EventHandler(this.btnFoundToRemoveAll_Click);
             // 
             // btnRemoveToFound
             // 
@@ -183,6 +184,7 @@
             this.btnRemoveToFoundAll.TabIndex = 13;
             this.btnRemoveToFoundAll.Text = "<<";
             this.btnRemoveToFoundAll.UseVisualStyleBackColor = true;
+            this.btnRemoveToFoundAll.Click += new System.EventHandler(this.btnRemoveToFoundAll_Click);
             // 
             // Search
             // 
