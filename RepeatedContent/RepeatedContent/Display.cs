@@ -28,14 +28,27 @@ namespace RepeatedContent
             }
         }
 
-        public void RemoveLinesFromListBox(ListBox listBox, List<Line> lines)
+        public void RemoveLinesFromListBox(ListBox listBox, bool removeAll=false)
         {
             List<Line> source = (List<Line>)listBox.DataSource;
-            foreach (Line line in listBox.SelectedItems)
+            if (removeAll)
             {
-                if (source.Contains(line))
+                foreach (Line line in listBox.Items)
                 {
-                    source.Remove(line);
+                    if (source.Contains(line))
+                    {
+                        source.Remove(line);
+                    }
+                }
+            }
+            else
+            {
+                foreach (Line line in listBox.SelectedItems)
+                {
+                    if (source.Contains(line))
+                    {
+                        source.Remove(line);
+                    }
                 }
             }
             listBox.DataSource = null;
@@ -46,7 +59,7 @@ namespace RepeatedContent
         {
             List<Line> selection = from.SelectedItems.Cast<Line>().ToList();
             AddLinesToListBox(to, selection);
-            RemoveLinesFromListBox(from, selection);
+            RemoveLinesFromListBox(from);
         }
 
         public void MoveAll(ListBox from, ListBox to)

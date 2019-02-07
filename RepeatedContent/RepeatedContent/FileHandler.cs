@@ -30,7 +30,7 @@ namespace RepeatedContent
                         .ToList();
         }
 
-        public void RemoveLinesFromFiles(List<string> testLines)
+        public void RemoveLinesFromFiles(List<Line> testLines)
         {
             foreach (string file in Files)
             {
@@ -41,7 +41,7 @@ namespace RepeatedContent
                         string line;
                         while ((line = sr.ReadLine()) != null)
                         {
-                            if (!testLines.Contains(line))
+                            if (!testLines.Select(item => item.Content).ToList().Contains(line))
                             {
                                 sw.WriteLine(line);
                             }

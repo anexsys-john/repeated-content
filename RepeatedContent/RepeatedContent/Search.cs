@@ -90,9 +90,7 @@ namespace RepeatedContent
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
         {
             handler = new FileHandler(tbFileInput.Text);
-            string input = tbRemoveTextInput.Text;
-            Regex newLinesRegex = new Regex(@"\r\n|\n|\r", RegexOptions.Singleline);
-            List<string> lines = newLinesRegex.Split(input).ToList();
+            List<Line> lines = lbxLinesToRemove.Items.Cast<Line>().ToList(); // this is ALL items from list
             handler.RemoveLinesFromFiles(lines);
         }
 
@@ -121,6 +119,7 @@ namespace RepeatedContent
 
         private void bwRemoveLines_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            display.RemoveLinesFromListBox(lbxLinesToRemove, true);
         }
 
         private void bwRemoveLines_ProgressChanged(object sender, ProgressChangedEventArgs e)
