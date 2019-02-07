@@ -20,12 +20,13 @@ namespace RepeatedContent
             Files = Directory.GetFiles(DirectoryPath);
         }
 
-        public List<string> GetRepeatedLines(BackgroundWorker worker)
+        public List<Line> GetRepeatedLines(BackgroundWorker worker)
         {
             GetLines(worker);
             return LinesFromFiles.GroupBy(x => x)
                         .Where(group => group.Count() > 1)
-                        .Select(group => group.Key)
+                        .Select(group => new Line(group.Count(), group.Key))
+                        .OrderByDescending(line => line.Count)
                         .ToList();
         }
 

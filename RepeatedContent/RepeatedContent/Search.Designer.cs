@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.BtnSearch = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
             this.tbFileInput = new System.Windows.Forms.TextBox();
             this.tbOutputWindow = new System.Windows.Forms.TextBox();
             this.bwRepeatedSearch = new System.ComponentModel.BackgroundWorker();
@@ -39,15 +39,15 @@
             this.bwRemoveLines = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
-            // BtnSearch
+            // btnSearch
             // 
-            this.BtnSearch.Location = new System.Drawing.Point(681, 14);
-            this.BtnSearch.Name = "BtnSearch";
-            this.BtnSearch.Size = new System.Drawing.Size(418, 38);
-            this.BtnSearch.TabIndex = 0;
-            this.BtnSearch.Text = "Search for Repeated Content";
-            this.BtnSearch.UseVisualStyleBackColor = true;
-            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
+            this.btnSearch.Location = new System.Drawing.Point(681, 14);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(418, 38);
+            this.btnSearch.TabIndex = 0;
+            this.btnSearch.Text = "Search for Repeated Content";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // tbFileInput
             // 
@@ -68,7 +68,7 @@
             this.tbOutputWindow.Name = "tbOutputWindow";
             this.tbOutputWindow.ReadOnly = true;
             this.tbOutputWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutputWindow.Size = new System.Drawing.Size(1087, 364);
+            this.tbOutputWindow.Size = new System.Drawing.Size(1087, 131);
             this.tbOutputWindow.TabIndex = 2;
             // 
             // bwRepeatedSearch
@@ -87,7 +87,7 @@
             // 
             // btnRemoveText
             // 
-            this.btnRemoveText.Location = new System.Drawing.Point(681, 545);
+            this.btnRemoveText.Location = new System.Drawing.Point(681, 428);
             this.btnRemoveText.Name = "btnRemoveText";
             this.btnRemoveText.Size = new System.Drawing.Size(418, 37);
             this.btnRemoveText.TabIndex = 5;
@@ -107,7 +107,7 @@
             // 
             // tbRemoveTextInput
             // 
-            this.tbRemoveTextInput.Location = new System.Drawing.Point(12, 469);
+            this.tbRemoveTextInput.Location = new System.Drawing.Point(12, 352);
             this.tbRemoveTextInput.Multiline = true;
             this.tbRemoveTextInput.Name = "tbRemoveTextInput";
             this.tbRemoveTextInput.Size = new System.Drawing.Size(652, 113);
@@ -129,7 +129,7 @@
             this.Controls.Add(this.pbRepeatedSearchProgress);
             this.Controls.Add(this.tbOutputWindow);
             this.Controls.Add(this.tbFileInput);
-            this.Controls.Add(this.BtnSearch);
+            this.Controls.Add(this.btnSearch);
             this.Name = "Search";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -138,7 +138,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button BtnSearch;
+        private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.TextBox tbFileInput;
         private System.Windows.Forms.TextBox tbOutputWindow;
         private System.ComponentModel.BackgroundWorker bwRepeatedSearch;

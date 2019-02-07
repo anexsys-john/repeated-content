@@ -14,10 +14,12 @@ namespace RepeatedContent
     public partial class Search : Form
     {
         private FileHandler handler;
+        private Display display;
 
         public Search()
         {
             InitializeComponent();
+            display = new Display();
         }
 
         private void tbFileInput_Enter(object sender, EventArgs e)
@@ -41,7 +43,7 @@ namespace RepeatedContent
             tbFileInput.Text = folderDialog.SelectedPath;
         }
 
-        private void BtnSearch_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             tbOutputWindow.Clear();
             if (bwRepeatedSearch.IsBusy == false)
@@ -59,10 +61,10 @@ namespace RepeatedContent
             }
         }
 
-        private string searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
+        private List<Line> searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
             handler = new FileHandler(tbFileInput.Text);
-            return string.Join(Environment.NewLine, handler.GetRepeatedLines(worker));
+            return handler.GetRepeatedLines(worker);
         }
 
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
@@ -82,7 +84,7 @@ namespace RepeatedContent
 
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            tbOutputWindow.AppendText(e.Result.ToString());
+            display.PrintLinesToControl(tbOutputWindow, (List<Line>)e.Result);
         }
 
         private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
