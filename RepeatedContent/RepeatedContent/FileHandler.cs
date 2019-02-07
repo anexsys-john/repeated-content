@@ -11,13 +11,24 @@ namespace RepeatedContent
     class FileHandler
     {
         private string DirectoryPath;
-        private string[] Files;
+        private List<string> Files = new List<string>();
         private List<string> LinesFromFiles = new List<string>();
+        private List<string> NestedDirectories = new List<string>();
 
         public FileHandler(string directoryPath)
         {
             DirectoryPath = directoryPath;
-            Files = Directory.GetFiles(DirectoryPath);
+            GetAllFiles(directoryPath);
+        }
+
+        private void GetAllFiles(string directoryPath)
+        {
+            Files.AddRange(Directory.GetFiles(directoryPath));
+            NestedDirectories = Directory.GetDirectories(directoryPath).Cast<string>().ToList();
+            foreach (string directory in NestedDirectories)
+            {
+                GetAllFiles(directory);
+            }
         }
 
         public List<Line> GetRepeatedLines(BackgroundWorker worker)
@@ -56,7 +67,7 @@ namespace RepeatedContent
         private void GetLines(BackgroundWorker worker)
         {
             LinesFromFiles = new List<string>();
-            int count = Files.Length;
+            int count = Files.Count;
             int i = 1;
             foreach (string file in Files)
             {
