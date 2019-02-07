@@ -9,16 +9,44 @@ namespace RepeatedContent
 {
     class Display
     {
-        public void PrintLinesToControl(Control control, List<Line> lines)
+        public Display()
         {
-            string output = "";
-            foreach (Line line in lines)
+        }
+
+        public void AddLinesToListBox(ListBox listBox, List<Line> lines)
+        {
+            if (listBox.DataSource == null)
             {
-                output += $"[{line.Count}] ";
-                output += line.Content;
-                output += Environment.NewLine;
+                listBox.DataSource = lines;
             }
-            control.Text = output;
+            else
+            {
+                List<Line> source = (List<Line>)listBox.DataSource;
+                source.AddRange(lines);
+                listBox.DataSource = null;
+                listBox.DataSource = source;
+            }
+        }
+
+        public void RemoveLinesFromListBox(ListBox listBox, List<Line> lines)
+        {
+            List<Line> source = (List<Line>)listBox.DataSource;
+            foreach (Line line in listBox.SelectedItems)
+            {
+                if (source.Contains(line))
+                {
+                    source.Remove(line);
+                }
+            }
+            listBox.DataSource = null;
+            listBox.DataSource = source;
+        }
+
+        public void MoveSelection(ListBox from, ListBox to)
+        {
+            List<Line> selection = from.SelectedItems.Cast<Line>().ToList();
+            AddLinesToListBox(to, selection);
+            RemoveLinesFromListBox(from, selection);
         }
     }
 }

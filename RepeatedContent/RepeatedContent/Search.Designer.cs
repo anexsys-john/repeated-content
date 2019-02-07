@@ -37,6 +37,12 @@
             this.btnDirectorySearch = new System.Windows.Forms.Button();
             this.tbRemoveTextInput = new System.Windows.Forms.TextBox();
             this.bwRemoveLines = new System.ComponentModel.BackgroundWorker();
+            this.lbxLinesFound = new System.Windows.Forms.ListBox();
+            this.lbxLinesToRemove = new System.Windows.Forms.ListBox();
+            this.btnFoundToRemove = new System.Windows.Forms.Button();
+            this.btnFoundToRemoveAll = new System.Windows.Forms.Button();
+            this.btnRemoveToFound = new System.Windows.Forms.Button();
+            this.btnRemoveToFoundAll = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnSearch
@@ -87,9 +93,9 @@
             // 
             // btnRemoveText
             // 
-            this.btnRemoveText.Location = new System.Drawing.Point(681, 428);
+            this.btnRemoveText.Location = new System.Drawing.Point(882, 525);
             this.btnRemoveText.Name = "btnRemoveText";
-            this.btnRemoveText.Size = new System.Drawing.Size(418, 37);
+            this.btnRemoveText.Size = new System.Drawing.Size(217, 37);
             this.btnRemoveText.TabIndex = 5;
             this.btnRemoveText.Text = "Remove Text";
             this.btnRemoveText.UseVisualStyleBackColor = true;
@@ -107,7 +113,7 @@
             // 
             // tbRemoveTextInput
             // 
-            this.tbRemoveTextInput.Location = new System.Drawing.Point(12, 352);
+            this.tbRemoveTextInput.Location = new System.Drawing.Point(12, 585);
             this.tbRemoveTextInput.Multiline = true;
             this.tbRemoveTextInput.Name = "tbRemoveTextInput";
             this.tbRemoveTextInput.Size = new System.Drawing.Size(652, 113);
@@ -120,9 +126,73 @@
             this.bwRemoveLines.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwRemoveLines_ProgressChanged);
             this.bwRemoveLines.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRemoveLines_RunWorkerCompleted);
             // 
+            // lbxLinesFound
+            // 
+            this.lbxLinesFound.FormattingEnabled = true;
+            this.lbxLinesFound.ItemHeight = 31;
+            this.lbxLinesFound.Location = new System.Drawing.Point(12, 236);
+            this.lbxLinesFound.Name = "lbxLinesFound";
+            this.lbxLinesFound.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbxLinesFound.Size = new System.Drawing.Size(472, 283);
+            this.lbxLinesFound.TabIndex = 8;
+            // 
+            // lbxLinesToRemove
+            // 
+            this.lbxLinesToRemove.FormattingEnabled = true;
+            this.lbxLinesToRemove.ItemHeight = 31;
+            this.lbxLinesToRemove.Location = new System.Drawing.Point(628, 236);
+            this.lbxLinesToRemove.Name = "lbxLinesToRemove";
+            this.lbxLinesToRemove.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lbxLinesToRemove.Size = new System.Drawing.Size(471, 283);
+            this.lbxLinesToRemove.TabIndex = 9;
+            // 
+            // btnFoundToRemove
+            // 
+            this.btnFoundToRemove.Location = new System.Drawing.Point(490, 338);
+            this.btnFoundToRemove.Name = "btnFoundToRemove";
+            this.btnFoundToRemove.Size = new System.Drawing.Size(122, 45);
+            this.btnFoundToRemove.TabIndex = 10;
+            this.btnFoundToRemove.Text = ">";
+            this.btnFoundToRemove.UseVisualStyleBackColor = true;
+            this.btnFoundToRemove.Click += new System.EventHandler(this.btnFoundToRemove_Click);
+            // 
+            // btnFoundToRemoveAll
+            // 
+            this.btnFoundToRemoveAll.Location = new System.Drawing.Point(490, 389);
+            this.btnFoundToRemoveAll.Name = "btnFoundToRemoveAll";
+            this.btnFoundToRemoveAll.Size = new System.Drawing.Size(122, 45);
+            this.btnFoundToRemoveAll.TabIndex = 11;
+            this.btnFoundToRemoveAll.Text = ">>";
+            this.btnFoundToRemoveAll.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoveToFound
+            // 
+            this.btnRemoveToFound.Location = new System.Drawing.Point(490, 287);
+            this.btnRemoveToFound.Name = "btnRemoveToFound";
+            this.btnRemoveToFound.Size = new System.Drawing.Size(122, 45);
+            this.btnRemoveToFound.TabIndex = 12;
+            this.btnRemoveToFound.Text = "<";
+            this.btnRemoveToFound.UseVisualStyleBackColor = true;
+            this.btnRemoveToFound.Click += new System.EventHandler(this.btnRemoveToFound_Click);
+            // 
+            // btnRemoveToFoundAll
+            // 
+            this.btnRemoveToFoundAll.Location = new System.Drawing.Point(490, 236);
+            this.btnRemoveToFoundAll.Name = "btnRemoveToFoundAll";
+            this.btnRemoveToFoundAll.Size = new System.Drawing.Size(122, 45);
+            this.btnRemoveToFoundAll.TabIndex = 13;
+            this.btnRemoveToFoundAll.Text = "<<";
+            this.btnRemoveToFoundAll.UseVisualStyleBackColor = true;
+            // 
             // Search
             // 
-            this.ClientSize = new System.Drawing.Size(1196, 621);
+            this.ClientSize = new System.Drawing.Size(1196, 723);
+            this.Controls.Add(this.btnRemoveToFoundAll);
+            this.Controls.Add(this.btnRemoveToFound);
+            this.Controls.Add(this.btnFoundToRemoveAll);
+            this.Controls.Add(this.btnFoundToRemove);
+            this.Controls.Add(this.lbxLinesToRemove);
+            this.Controls.Add(this.lbxLinesFound);
             this.Controls.Add(this.tbRemoveTextInput);
             this.Controls.Add(this.btnDirectorySearch);
             this.Controls.Add(this.btnRemoveText);
@@ -147,6 +217,12 @@
         private System.Windows.Forms.Button btnDirectorySearch;
         private System.Windows.Forms.TextBox tbRemoveTextInput;
         private System.ComponentModel.BackgroundWorker bwRemoveLines;
+        private System.Windows.Forms.ListBox lbxLinesFound;
+        private System.Windows.Forms.ListBox lbxLinesToRemove;
+        private System.Windows.Forms.Button btnFoundToRemove;
+        private System.Windows.Forms.Button btnFoundToRemoveAll;
+        private System.Windows.Forms.Button btnRemoveToFound;
+        private System.Windows.Forms.Button btnRemoveToFoundAll;
     }
 }
 

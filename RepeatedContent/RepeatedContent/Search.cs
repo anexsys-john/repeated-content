@@ -52,6 +52,16 @@ namespace RepeatedContent
             }
         }
 
+        private void btnFoundToRemove_Click(object sender, EventArgs e)
+        {
+            display.MoveSelection(lbxLinesFound, lbxLinesToRemove);
+        }
+
+        private void btnRemoveToFound_Click(object sender, EventArgs e)
+        {
+            display.MoveSelection(lbxLinesToRemove, lbxLinesFound);
+        }
+
         private void btnRemoveText_Click(object sender, EventArgs e)
         {
             tbOutputWindow.Clear();
@@ -84,7 +94,7 @@ namespace RepeatedContent
 
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            display.PrintLinesToControl(tbOutputWindow, (List<Line>)e.Result);
+            display.AddLinesToListBox(lbxLinesFound, (List<Line>)e.Result);
         }
 
         private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)

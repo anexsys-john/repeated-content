@@ -16,5 +16,10 @@ namespace RepeatedContent
             Count = count;
             Content = content;
         }
+
+        public override string ToString()
+        {
+            return $"[{Count}] {Content}";
+        }
     }
 }
