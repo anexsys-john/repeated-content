@@ -40,8 +40,10 @@ namespace RepeatedContent
                         .ToList();
         }
 
-        public List<RemovedLine> RemoveLinesFromFiles(List<Line> testLines) // returns the lines that were removed
+        public List<RemovedLine> RemoveLinesFromFiles(BackgroundWorker worker, List<Line> testLines) // returns the lines that were removed
         {
+            int count = Files.Count();
+            int i = 1;
             List<RemovedLine> removedLines = new List<RemovedLine>();
             foreach (string file in Files)
             {
@@ -65,6 +67,8 @@ namespace RepeatedContent
                 }
                 File.Delete(file);
                 File.Move("test", file);
+                worker.ReportProgress((i / count) * 100);
+                i++;
             }
             return removedLines;
         }

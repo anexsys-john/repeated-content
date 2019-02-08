@@ -94,7 +94,7 @@ namespace RepeatedContent
         {
             handler = new FileHandler(tbFileInput.Text);
             List<Line> lines = lbxLinesToRemove.Items.Cast<Line>().ToList(); // this is ALL items from list
-            List<RemovedLine> removedLines = handler.RemoveLinesFromFiles(lines);
+            List<RemovedLine> removedLines = handler.RemoveLinesFromFiles(worker, lines);
             e.Result = removedLines;
         }
 
@@ -141,6 +141,8 @@ namespace RepeatedContent
 
         private void bwRemoveLines_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            int completion = e.ProgressPercentage;
+            pbRepeatedSearchProgress.Value = completion;
         }
     }
 }
