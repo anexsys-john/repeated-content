@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Display.cs" />
+    <Compile Include="Extension.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="RemovedLine.cs" />

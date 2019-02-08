@@ -37,7 +37,6 @@ namespace RepeatedContent
             return LinesFromFiles.GroupBy(x => x)
                         .Where(group => group.Count() > 1)
                         .Select(group => new Line(group.Count(), group.Key))
-                        .OrderByDescending(line => line.Count)
                         .ToList();
         }
 

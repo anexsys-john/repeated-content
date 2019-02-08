@@ -26,6 +26,7 @@ namespace RepeatedContent
                 listBox.DataSource = null;
                 listBox.DataSource = source;
             }
+            SortListBox(listBox);
         }
 
         public void RemoveLinesFromListBox(ListBox listBox, bool removeAll = false)
@@ -77,6 +78,11 @@ namespace RepeatedContent
         public void ClearOutputMessage(TextBox textBox)
         {
             textBox.Clear();
+        }
+
+        private void SortListBox(ListBox listBox)
+        {
+            listBox.SortBy<Line>(line => line.Count);
         }
     }
 }
