@@ -73,6 +73,11 @@ namespace RepeatedContent
             return removedLines;
         }
 
+        public void RemoveHeaders()
+        {
+
+        }
+
         private void GetLines(BackgroundWorker worker)
         {
             LinesFromFiles = new List<string>();

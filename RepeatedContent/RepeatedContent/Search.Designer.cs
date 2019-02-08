@@ -47,13 +47,15 @@
             this.lbLinesFound = new System.Windows.Forms.Label();
             this.lbLinesToRemove = new System.Windows.Forms.Label();
             this.lbOutput = new System.Windows.Forms.Label();
+            this.btnRemoveHeaders = new System.Windows.Forms.Button();
+            this.bwRemoveHeaders = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumLineCount)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSearch
             // 
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(640, 12);
+            this.btnSearch.Location = new System.Drawing.Point(520, 11);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(156, 23);
             this.btnSearch.TabIndex = 0;
@@ -67,7 +69,7 @@
             this.tbFileInput.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.tbFileInput.Location = new System.Drawing.Point(12, 12);
             this.tbFileInput.Name = "tbFileInput";
-            this.tbFileInput.Size = new System.Drawing.Size(418, 20);
+            this.tbFileInput.Size = new System.Drawing.Size(300, 20);
             this.tbFileInput.TabIndex = 1;
             this.tbFileInput.Text = "Input Directory Here...";
             this.tbFileInput.Enter += new System.EventHandler(this.tbFileInput_Enter);
@@ -101,7 +103,7 @@
             // btnDirectorySearch
             // 
             this.btnDirectorySearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDirectorySearch.Location = new System.Drawing.Point(438, 13);
+            this.btnDirectorySearch.Location = new System.Drawing.Point(318, 12);
             this.btnDirectorySearch.Name = "btnDirectorySearch";
             this.btnDirectorySearch.Size = new System.Drawing.Size(26, 20);
             this.btnDirectorySearch.TabIndex = 6;
@@ -193,7 +195,7 @@
             // nudMinimumLineCount
             // 
             this.nudMinimumLineCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudMinimumLineCount.Location = new System.Drawing.Point(480, 13);
+            this.nudMinimumLineCount.Location = new System.Drawing.Point(360, 12);
             this.nudMinimumLineCount.Minimum = new decimal(new int[] {
             2,
             0,
@@ -212,7 +214,7 @@
             // 
             this.lbMinimumLineCount.AutoSize = true;
             this.lbMinimumLineCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbMinimumLineCount.Location = new System.Drawing.Point(532, 17);
+            this.lbMinimumLineCount.Location = new System.Drawing.Point(412, 16);
             this.lbMinimumLineCount.Name = "lbMinimumLineCount";
             this.lbMinimumLineCount.Size = new System.Drawing.Size(102, 13);
             this.lbMinimumLineCount.TabIndex = 15;
@@ -248,12 +250,30 @@
             this.lbOutput.TabIndex = 18;
             this.lbOutput.Text = "Output";
             // 
+            // btnRemoveHeaders
+            // 
+            this.btnRemoveHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemoveHeaders.Location = new System.Drawing.Point(683, 11);
+            this.btnRemoveHeaders.Name = "btnRemoveHeaders";
+            this.btnRemoveHeaders.Size = new System.Drawing.Size(113, 23);
+            this.btnRemoveHeaders.TabIndex = 19;
+            this.btnRemoveHeaders.Text = "Remove Headers";
+            this.btnRemoveHeaders.UseVisualStyleBackColor = true;
+            this.btnRemoveHeaders.Click += new System.EventHandler(this.btnRemoveHeaders_Click);
+            // 
+            // bwRemoveHeaders
+            // 
+            this.bwRemoveHeaders.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRemoveHeaders_DoWork);
+            this.bwRemoveHeaders.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwRemoveHeaders_ProgressChanged);
+            this.bwRemoveHeaders.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRemoveHeaders_RunWorkerCompleted);
+            // 
             // Search
             // 
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1196, 643);
+            this.Controls.Add(this.btnRemoveHeaders);
             this.Controls.Add(this.lbOutput);
             this.Controls.Add(this.lbLinesToRemove);
             this.Controls.Add(this.lbLinesFound);
@@ -300,6 +320,8 @@
         private System.Windows.Forms.Label lbLinesFound;
         private System.Windows.Forms.Label lbLinesToRemove;
         private System.Windows.Forms.Label lbOutput;
+        private System.Windows.Forms.Button btnRemoveHeaders;
+        private System.ComponentModel.BackgroundWorker bwRemoveHeaders;
     }
 }
 

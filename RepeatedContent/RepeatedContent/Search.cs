@@ -84,6 +84,14 @@ namespace RepeatedContent
             }
         }
 
+        private void btnRemoveHeaders_Click(object sender, EventArgs e)
+        {
+            if (bwRemoveHeaders.IsBusy == false)
+            {
+                bwRemoveHeaders.RunWorkerAsync();
+            }
+        }
+
         private List<Line> searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
             handler = new FileHandler(tbFileInput.Text);
@@ -96,6 +104,12 @@ namespace RepeatedContent
             List<Line> lines = lbxLinesToRemove.Items.Cast<Line>().ToList(); // this is ALL items from list
             List<RemovedLine> removedLines = handler.RemoveLinesFromFiles(worker, lines);
             e.Result = removedLines;
+        }
+
+        private void removeHeaders(BackgroundWorker worker, DoWorkEventArgs e)
+        {
+            handler = new FileHandler(tbFileInput.Text);
+            handler.RemoveHeaders();
         }
 
         private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
@@ -115,6 +129,22 @@ namespace RepeatedContent
         {
             int completion = e.ProgressPercentage;
             pbRepeatedSearchProgress.Value = completion;
+        }
+
+        private void bwRemoveHeaders_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            removeHeaders(worker, e);
+        }
+
+        private void bwRemoveHeaders_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+
+        }
+
+        private void bwRemoveHeaders_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+
         }
 
         private void bwRemoveLines_DoWork(object sender, DoWorkEventArgs e)
