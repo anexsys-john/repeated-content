@@ -75,6 +75,11 @@ namespace RepeatedContent
             textBox.AppendText(Environment.NewLine);
         }
 
+        public void ClearListBox(ListBox listBox)
+        {
+            listBox.DataSource = null;
+        }
+
         public void ClearOutputMessage(TextBox textBox)
         {
             textBox.Clear();

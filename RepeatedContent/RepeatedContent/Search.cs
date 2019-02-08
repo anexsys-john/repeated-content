@@ -45,7 +45,8 @@ namespace RepeatedContent
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            display.ClearOutputMessage(tbOutputWindow);
+            display.ClearListBox(lbxLinesFound);
+            display.ClearListBox(lbxLinesToRemove);
             string message = $"Searching for repeated lines in {tbFileInput.Text}";
             display.AppendOutputMessage(tbOutputWindow, message);
             if (bwRepeatedSearch.IsBusy == false)
@@ -86,7 +87,7 @@ namespace RepeatedContent
         private List<Line> searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
             handler = new FileHandler(tbFileInput.Text);
-            return handler.GetRepeatedLines(worker);
+            return handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
         }
 
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)

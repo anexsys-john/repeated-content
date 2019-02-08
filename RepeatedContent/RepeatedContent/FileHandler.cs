@@ -31,11 +31,11 @@ namespace RepeatedContent
             }
         }
 
-        public List<Line> GetRepeatedLines(BackgroundWorker worker)
+        public List<Line> GetRepeatedLines(BackgroundWorker worker, int limit)
         {
             GetLines(worker);
             return LinesFromFiles.GroupBy(x => x)
-                        .Where(group => group.Count() > 1)
+                        .Where(group => group.Count() >= limit)
                         .Select(group => new Line(group.Count(), group.Key))
                         .ToList();
         }
