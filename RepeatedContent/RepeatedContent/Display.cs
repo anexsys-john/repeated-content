@@ -28,7 +28,7 @@ namespace RepeatedContent
             }
         }
 
-        public void RemoveLinesFromListBox(ListBox listBox, bool removeAll=false)
+        public void RemoveLinesFromListBox(ListBox listBox, bool removeAll = false)
         {
             List<Line> source = (List<Line>)listBox.DataSource;
             if (removeAll)
@@ -66,6 +66,17 @@ namespace RepeatedContent
         {
             AddLinesToListBox(to, from.Items.Cast<Line>().ToList());
             from.DataSource = null;
+        }
+
+        public void AppendOutputMessage(TextBox textBox, string message)
+        {
+            textBox.AppendText(message);
+            textBox.AppendText(Environment.NewLine);
+        }
+
+        public void ClearOutputMessage(TextBox textBox)
+        {
+            textBox.Clear();
         }
     }
 }

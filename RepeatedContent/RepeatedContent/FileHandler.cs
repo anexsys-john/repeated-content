@@ -41,8 +41,9 @@ namespace RepeatedContent
                         .ToList();
         }
 
-        public void RemoveLinesFromFiles(List<Line> testLines)
+        public List<RemovedLine> RemoveLinesFromFiles(List<Line> testLines) // returns the lines that were removed
         {
+            List<RemovedLine> removedLines = new List<RemovedLine>();
             foreach (string file in Files)
             {
                 using (StreamWriter sw = new StreamWriter("test"))
@@ -56,12 +57,17 @@ namespace RepeatedContent
                             {
                                 sw.WriteLine(line);
                             }
+                            else
+                            {
+                                removedLines.Add(new RemovedLine(line, file));
+                            }
                         }
                     }
                 }
                 File.Delete(file);
                 File.Move("test", file);
             }
+            return removedLines;
         }
 
         private void GetLines(BackgroundWorker worker)

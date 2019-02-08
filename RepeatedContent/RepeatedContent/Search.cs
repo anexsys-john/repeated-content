@@ -45,7 +45,9 @@ namespace RepeatedContent
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            tbOutputWindow.Clear();
+            display.ClearOutputMessage(tbOutputWindow);
+            string message = $"Searching for repeated lines in {tbFileInput.Text}";
+            display.AppendOutputMessage(tbOutputWindow, message);
             if (bwRepeatedSearch.IsBusy == false)
             {
                 bwRepeatedSearch.RunWorkerAsync();
@@ -74,7 +76,7 @@ namespace RepeatedContent
 
         private void btnRemoveText_Click(object sender, EventArgs e)
         {
-            tbOutputWindow.Clear();
+            //tbOutputWindow.Clear();
             if (bwRemoveLines.IsBusy == false)
             {
                 bwRemoveLines.RunWorkerAsync();
@@ -91,7 +93,8 @@ namespace RepeatedContent
         {
             handler = new FileHandler(tbFileInput.Text);
             List<Line> lines = lbxLinesToRemove.Items.Cast<Line>().ToList(); // this is ALL items from list
-            handler.RemoveLinesFromFiles(lines);
+            List<RemovedLine> removedLines = handler.RemoveLinesFromFiles(lines);
+            e.Result = removedLines;
         }
 
         private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
@@ -103,6 +106,8 @@ namespace RepeatedContent
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             display.AddLinesToListBox(lbxLinesFound, (List<Line>)e.Result);
+            string message = $"Finished searching {tbFileInput.Text}";
+            display.AppendOutputMessage(tbOutputWindow, message);
         }
 
         private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -120,6 +125,17 @@ namespace RepeatedContent
         private void bwRemoveLines_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             display.RemoveLinesFromListBox(lbxLinesToRemove, true);
+            string message = "";
+            foreach (RemovedLine removedLine in (List<RemovedLine>)e.Result)
+            {
+                int length = removedLine.Line.Length;
+                int cutOff = 50;
+                bool truncated = length > cutOff;
+                string ellipsis = (truncated ? "..." : "");
+                message += $"[{removedLine.Line.Substring(0, (truncated ? cutOff : length - 1))}{ellipsis}] has been removed from file [{removedLine.File}]";
+                message += Environment.NewLine;
+            }
+            display.AppendOutputMessage(tbOutputWindow, message);
         }
 
         private void bwRemoveLines_ProgressChanged(object sender, ProgressChangedEventArgs e)

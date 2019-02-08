@@ -50,6 +50,7 @@
     <Compile Include="Display.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="RemovedLine.cs" />
     <Compile Include="Search.cs">
       <SubType>Form</SubType>
     </Compile>
