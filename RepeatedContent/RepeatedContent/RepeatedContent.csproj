@@ -50,9 +50,9 @@
     <Compile Include="Display.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="FileHandler.cs" />
-    <Compile Include="Line.cs" />
-    <Compile Include="RepeatedLine.cs" />
-    <Compile Include="RemovedLine.cs" />
+    <Compile Include="DataStructures\Line.cs" />
+    <Compile Include="DataStructures\RepeatedLine.cs" />
+    <Compile Include="DataStructures\RemovedLine.cs" />
     <Compile Include="Search.cs">
       <SubType>Form</SubType>
     </Compile>

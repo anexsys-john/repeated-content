@@ -14,7 +14,6 @@ namespace RepeatedContent
         public List<string> Files { get; }
         private List<string> Headers = new List<string>();
         public List<string> LinesFromFiles { get; }
-        //public List<string> LinesFromFiles = new List<string>();
         private List<string> NestedDirectories = new List<string>();
 
         public FileHandler(string directoryPath)
@@ -72,7 +71,7 @@ namespace RepeatedContent
                 }
                 File.Delete(file);
                 File.Move("test", file);
-                worker.ReportProgress((i / count) * 100);
+                worker.ReportProgress((int)(i / (decimal)count * 100));
                 i++;
             }
             return removedLines;
@@ -128,7 +127,7 @@ namespace RepeatedContent
                         lineNumber++;
                     }
                 }
-                worker.ReportProgress((i / count) * 100);
+                worker.ReportProgress((int)(i / (decimal)count * 100));
                 i++;
 
                 File.WriteAllLines("test", currentFileLines);
