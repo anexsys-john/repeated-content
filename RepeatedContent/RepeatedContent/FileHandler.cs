@@ -13,11 +13,13 @@ namespace RepeatedContent
         private string DirectoryPath;
         public List<string> Files { get; }
         private List<string> Headers = new List<string>();
-        private List<string> LinesFromFiles = new List<string>();
+        public List<string> LinesFromFiles { get; }
+        //public List<string> LinesFromFiles = new List<string>();
         private List<string> NestedDirectories = new List<string>();
 
         public FileHandler(string directoryPath)
         {
+            LinesFromFiles = new List<string>();
             Files = new List<string>();
             DirectoryPath = directoryPath;
             GetAllFiles(directoryPath);
@@ -76,7 +78,6 @@ namespace RepeatedContent
             return removedLines;
         }
 
-
         private void GetHeaders()
         {
             using (StreamReader sr = new StreamReader("data/headers.txt"))
@@ -86,25 +87,43 @@ namespace RepeatedContent
                     Headers.Add(sr.ReadLine());
                 }
             }
-        }
-
-        public void RemoveHeaders()
-        {
 
         }
 
-        private void GetLines(BackgroundWorker worker)
+        private void DealWithHeaders(ref bool inHeaderSection, ref int newLineCount, string currentLine, int lineNumber)
         {
-            LinesFromFiles = new List<string>();
+            if (lineNumber == 0 && Headers.Contains(currentLine.Split(':').First().ToLower()))
+            {
+                inHeaderSection = true;
+            }
+            else if (inHeaderSection && string.IsNullOrEmpty(currentLine))
+            {
+                newLineCount++;
+                if (newLineCount == 2) inHeaderSection = false;
+            }
+            else if (!inHeaderSection)
+            {
+                LinesFromFiles.Add(currentLine);
+            }
+        }
+
+        public void GetLines(BackgroundWorker worker)
+        {
             int count = Files.Count;
             int i = 1;
+            int lineNumber = 0;
+            int newLineCount = 0;
+            string currentLine;
+            bool inHeaderSection = false;
             foreach (string file in Files)
             {
                 using (StreamReader sr = new StreamReader(file))
                 {
                     while (sr.Peek() >= 0)
                     {
-                        LinesFromFiles.Add(sr.ReadLine());
+                        currentLine = sr.ReadLine();
+                        DealWithHeaders(ref inHeaderSection, ref newLineCount, currentLine, lineNumber);
+                        lineNumber++;
                     }
                 }
                 worker.ReportProgress((i / count) * 100);

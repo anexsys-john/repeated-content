@@ -47,7 +47,6 @@
             this.lbLinesFound = new System.Windows.Forms.Label();
             this.lbLinesToRemove = new System.Windows.Forms.Label();
             this.lbOutput = new System.Windows.Forms.Label();
-            this.btnRemoveHeaders = new System.Windows.Forms.Button();
             this.bwRemoveHeaders = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumLineCount)).BeginInit();
             this.SuspendLayout();
@@ -250,30 +249,12 @@
             this.lbOutput.TabIndex = 18;
             this.lbOutput.Text = "Output";
             // 
-            // btnRemoveHeaders
-            // 
-            this.btnRemoveHeaders.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemoveHeaders.Location = new System.Drawing.Point(683, 11);
-            this.btnRemoveHeaders.Name = "btnRemoveHeaders";
-            this.btnRemoveHeaders.Size = new System.Drawing.Size(113, 23);
-            this.btnRemoveHeaders.TabIndex = 19;
-            this.btnRemoveHeaders.Text = "Remove Headers";
-            this.btnRemoveHeaders.UseVisualStyleBackColor = true;
-            this.btnRemoveHeaders.Click += new System.EventHandler(this.btnRemoveHeaders_Click);
-            // 
-            // bwRemoveHeaders
-            // 
-            this.bwRemoveHeaders.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwRemoveHeaders_DoWork);
-            this.bwRemoveHeaders.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bwRemoveHeaders_ProgressChanged);
-            this.bwRemoveHeaders.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwRemoveHeaders_RunWorkerCompleted);
-            // 
             // Search
             // 
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1196, 643);
-            this.Controls.Add(this.btnRemoveHeaders);
             this.Controls.Add(this.lbOutput);
             this.Controls.Add(this.lbLinesToRemove);
             this.Controls.Add(this.lbLinesFound);
@@ -320,7 +301,6 @@
         private System.Windows.Forms.Label lbLinesFound;
         private System.Windows.Forms.Label lbLinesToRemove;
         private System.Windows.Forms.Label lbOutput;
-        private System.Windows.Forms.Button btnRemoveHeaders;
         private System.ComponentModel.BackgroundWorker bwRemoveHeaders;
     }
 }

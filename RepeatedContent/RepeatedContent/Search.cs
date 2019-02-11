@@ -106,12 +106,6 @@ namespace RepeatedContent
             e.Result = removedLines;
         }
 
-        private void removeHeaders(BackgroundWorker worker, DoWorkEventArgs e)
-        {
-            handler = new FileHandler(tbFileInput.Text);
-            handler.RemoveHeaders();
-        }
-
         private void bwRepeatedSearch_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
@@ -129,22 +123,6 @@ namespace RepeatedContent
         {
             int completion = e.ProgressPercentage;
             pbRepeatedSearchProgress.Value = completion;
-        }
-
-        private void bwRemoveHeaders_DoWork(object sender, DoWorkEventArgs e)
-        {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            removeHeaders(worker, e);
-        }
-
-        private void bwRemoveHeaders_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-
-        }
-
-        private void bwRemoveHeaders_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-
         }
 
         private void bwRemoveLines_DoWork(object sender, DoWorkEventArgs e)
