@@ -90,7 +90,7 @@ namespace RepeatedContent
 
         }
 
-        private void DealWithHeaders(ref bool inHeaderSection, ref int newLineCount, string currentLine, int lineNumber)
+        private void DealWithHeaders(ref bool inHeaderSection, ref int newLineCount, string currentLine, int lineNumber, ref List<string> currentFileLines)
         {
             if (lineNumber == 0 && Headers.Contains(currentLine.Split(':').First().ToLower()))
             {
@@ -104,6 +104,7 @@ namespace RepeatedContent
             else if (!inHeaderSection)
             {
                 LinesFromFiles.Add(currentLine);
+                currentFileLines.Add(currentLine);
             }
         }
 
@@ -117,17 +118,22 @@ namespace RepeatedContent
             bool inHeaderSection = false;
             foreach (string file in Files)
             {
+                List<string> currentFileLines = new List<string>();
                 using (StreamReader sr = new StreamReader(file))
                 {
                     while (sr.Peek() >= 0)
                     {
                         currentLine = sr.ReadLine();
-                        DealWithHeaders(ref inHeaderSection, ref newLineCount, currentLine, lineNumber);
+                        DealWithHeaders(ref inHeaderSection, ref newLineCount, currentLine, lineNumber, ref currentFileLines);
                         lineNumber++;
                     }
                 }
                 worker.ReportProgress((i / count) * 100);
                 i++;
+
+                File.WriteAllLines("test", currentFileLines);
+                File.Delete(file);
+                File.Move("test", file);
             }
         }
     }
