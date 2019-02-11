@@ -12,7 +12,7 @@ namespace RepeatedContent
     {
         private string DirectoryPath;
         public List<string> Files { get; }
-        private List<string> Headers;
+        private List<string> Headers = new List<string>();
         private List<string> LinesFromFiles = new List<string>();
         private List<string> NestedDirectories = new List<string>();
 
@@ -76,12 +76,8 @@ namespace RepeatedContent
             return removedLines;
         }
 
+
         private void GetHeaders()
-        {
-
-        }
-
-        public void RemoveHeaders()
         {
             using (StreamReader sr = new StreamReader("data/headers.txt"))
             {
@@ -90,6 +86,11 @@ namespace RepeatedContent
                     Headers.Add(sr.ReadLine());
                 }
             }
+        }
+
+        public void RemoveHeaders()
+        {
+
         }
 
         private void GetLines(BackgroundWorker worker)
