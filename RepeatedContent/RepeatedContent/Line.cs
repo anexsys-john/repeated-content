@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RepeatedContent
 {
-    class Line
+    public class Line
     {
         public int Count { get; }
         public string Content { get; }

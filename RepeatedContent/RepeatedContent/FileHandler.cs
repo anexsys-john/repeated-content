@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace RepeatedContent
 {
-    class FileHandler
+    public class FileHandler
     {
         private string DirectoryPath;
-        private List<string> Files = new List<string>();
+        public List<string> Files { get; }
+        private List<string> Headers;
         private List<string> LinesFromFiles = new List<string>();
         private List<string> NestedDirectories = new List<string>();
 
         public FileHandler(string directoryPath)
         {
+            Files = new List<string>();
             DirectoryPath = directoryPath;
             GetAllFiles(directoryPath);
+            GetHeaders();
         }
 
-        private void GetAllFiles(string directoryPath)
+        public void GetAllFiles(string directoryPath)
         {
             Files.AddRange(Directory.GetFiles(directoryPath));
             NestedDirectories = Directory.GetDirectories(directoryPath).Cast<string>().ToList();
@@ -73,9 +76,20 @@ namespace RepeatedContent
             return removedLines;
         }
 
-        public void RemoveHeaders()
+        private void GetHeaders()
         {
 
+        }
+
+        public void RemoveHeaders()
+        {
+            using (StreamReader sr = new StreamReader("data/headers.txt"))
+            {
+                while (sr.Peek() >= 0)
+                {
+                    Headers.Add(sr.ReadLine());
+                }
+            }
         }
 
         private void GetLines(BackgroundWorker worker)

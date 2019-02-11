@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.329
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepeatedContent", "RepeatedContent\RepeatedContent.csproj", "{E507352C-F5BA-4799-9F27-CD2934D93FFD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepeatedContentTests", "RepeatedContentTests\RepeatedContentTests.csproj", "{354BDBE5-FFA8-419C-955F-8EC1C8774199}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E507352C-F5BA-4799-9F27-CD2934D93FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E507352C-F5BA-4799-9F27-CD2934D93FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E507352C-F5BA-4799-9F27-CD2934D93FFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{354BDBE5-FFA8-419C-955F-8EC1C8774199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{354BDBE5-FFA8-419C-955F-8EC1C8774199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{354BDBE5-FFA8-419C-955F-8EC1C8774199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{354BDBE5-FFA8-419C-955F-8EC1C8774199}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

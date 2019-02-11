@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RepeatedContent
 {
-    class RemovedLine
+    public class RemovedLine
     {
         public string Line { get; }
         public string File { get; }
