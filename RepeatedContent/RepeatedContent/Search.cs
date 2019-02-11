@@ -92,7 +92,7 @@ namespace RepeatedContent
             }
         }
 
-        private List<Line> searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
+        private List<RepeatedLine> searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
             handler = new FileHandler(tbFileInput.Text);
             return handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
@@ -101,7 +101,7 @@ namespace RepeatedContent
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
         {
             handler = new FileHandler(tbFileInput.Text);
-            List<Line> lines = lbxLinesToRemove.Items.Cast<Line>().ToList(); // this is ALL items from list
+            List<RepeatedLine> lines = lbxLinesToRemove.Items.Cast<RepeatedLine>().ToList(); // this is ALL items from list
             List<RemovedLine> removedLines = handler.RemoveLinesFromFiles(worker, lines);
             e.Result = removedLines;
         }
@@ -114,7 +114,7 @@ namespace RepeatedContent
 
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            display.AddLinesToListBox(lbxLinesFound, (List<Line>)e.Result);
+            display.AddLinesToListBox(lbxLinesFound, (List<RepeatedLine>)e.Result);
             string message = $"Finished searching {tbFileInput.Text}";
             display.AppendOutputMessage(tbOutputWindow, message);
         }
@@ -137,11 +137,11 @@ namespace RepeatedContent
             string message = "";
             foreach (RemovedLine removedLine in (List<RemovedLine>)e.Result)
             {
-                int length = removedLine.Line.Length;
+                int length = removedLine.Content.Length;
                 int cutOff = 50;
                 bool truncated = length > cutOff;
                 string ellipsis = (truncated ? "..." : "");
-                message += $"[{removedLine.Line.Substring(0, (truncated ? cutOff : length - 1))}{ellipsis}] has been removed from file [{removedLine.File}]";
+                message += $"[{removedLine.Content.Substring(0, (truncated ? cutOff : length - 1))}{ellipsis}] has been removed from file [{removedLine.File}]";
                 message += Environment.NewLine;
             }
             display.AppendOutputMessage(tbOutputWindow, message);

@@ -50,7 +50,7 @@
     <Compile Include="Display.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="FileHandler.cs" />
-    <Compile Include="HeaderLine.cs" />
+    <Compile Include="Line.cs" />
     <Compile Include="RepeatedLine.cs" />
     <Compile Include="RemovedLine.cs" />
     <Compile Include="Search.cs">

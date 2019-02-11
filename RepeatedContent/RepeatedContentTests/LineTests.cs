@@ -17,7 +17,7 @@ namespace RepeatedContent.Tests
             int count = 4;
             string content = "This is test content";
 
-            Line line = new Line(count, content);
+            RepeatedLine line = new RepeatedLine(count, content);
 
             Assert.IsNotNull(line);
         }

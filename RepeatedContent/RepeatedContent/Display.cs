@@ -13,7 +13,7 @@ namespace RepeatedContent
         {
         }
 
-        public void AddLinesToListBox(ListBox listBox, List<Line> lines)
+        public void AddLinesToListBox(ListBox listBox, List<RepeatedLine> lines)
         {
             if (listBox.DataSource == null)
             {
@@ -21,7 +21,7 @@ namespace RepeatedContent
             }
             else
             {
-                List<Line> source = (List<Line>)listBox.DataSource;
+                List<RepeatedLine> source = (List<RepeatedLine>)listBox.DataSource;
                 source.AddRange(lines);
                 listBox.DataSource = null;
                 listBox.DataSource = source;
@@ -31,10 +31,10 @@ namespace RepeatedContent
 
         public void RemoveLinesFromListBox(ListBox listBox, bool removeAll = false)
         {
-            List<Line> source = (List<Line>)listBox.DataSource;
+            List<RepeatedLine> source = (List<RepeatedLine>)listBox.DataSource;
             if (removeAll)
             {
-                foreach (Line line in listBox.Items)
+                foreach (RepeatedLine line in listBox.Items)
                 {
                     if (source.Contains(line))
                     {
@@ -44,7 +44,7 @@ namespace RepeatedContent
             }
             else
             {
-                foreach (Line line in listBox.SelectedItems)
+                foreach (RepeatedLine line in listBox.SelectedItems)
                 {
                     if (source.Contains(line))
                     {
@@ -58,14 +58,14 @@ namespace RepeatedContent
 
         public void MoveSelection(ListBox from, ListBox to)
         {
-            List<Line> selection = from.SelectedItems.Cast<Line>().ToList();
+            List<RepeatedLine> selection = from.SelectedItems.Cast<RepeatedLine>().ToList();
             AddLinesToListBox(to, selection);
             RemoveLinesFromListBox(from);
         }
 
         public void MoveAll(ListBox from, ListBox to)
         {
-            AddLinesToListBox(to, from.Items.Cast<Line>().ToList());
+            AddLinesToListBox(to, from.Items.Cast<RepeatedLine>().ToList());
             from.DataSource = null;
         }
 
@@ -87,7 +87,7 @@ namespace RepeatedContent
 
         private void SortListBox(ListBox listBox)
         {
-            listBox.SortBy<Line>(line => line.Count);
+            listBox.SortBy<RepeatedLine>(line => line.Count);
         }
     }
 }

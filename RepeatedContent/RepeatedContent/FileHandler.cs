@@ -36,16 +36,16 @@ namespace RepeatedContent
             }
         }
 
-        public List<Line> GetRepeatedLines(BackgroundWorker worker, int limit)
+        public List<RepeatedLine> GetRepeatedLines(BackgroundWorker worker, int limit)
         {
             GetLines(worker);
             return LinesFromFiles.GroupBy(x => x)
                         .Where(group => group.Count() >= limit)
-                        .Select(group => new Line(group.Count(), group.Key))
+                        .Select(group => new RepeatedLine(group.Count(), group.Key))
                         .ToList();
         }
 
-        public List<RemovedLine> RemoveLinesFromFiles(BackgroundWorker worker, List<Line> testLines) // returns the lines that were removed
+        public List<RemovedLine> RemoveLinesFromFiles(BackgroundWorker worker, List<RepeatedLine> testLines) // returns the lines that were removed
         {
             int count = Files.Count();
             int i = 1;

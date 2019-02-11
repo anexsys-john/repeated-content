@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace RepeatedContent
 {
-    public class RemovedLine
+    public class RemovedLine : Line
     {
-        public string Line { get; }
         public string File { get; }
         
-        public RemovedLine(string line, string file)
+        public RemovedLine(string content, string file) : base(content)
         {
-            Line = line;
             File = file;
         }
     }
