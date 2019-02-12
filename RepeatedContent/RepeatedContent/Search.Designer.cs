@@ -95,7 +95,7 @@
             this.btnRemoveText.Name = "btnRemoveText";
             this.btnRemoveText.Size = new System.Drawing.Size(95, 22);
             this.btnRemoveText.TabIndex = 5;
-            this.btnRemoveText.Text = "Remove Text";
+            this.btnRemoveText.Text = "Remove Lines";
             this.btnRemoveText.UseVisualStyleBackColor = true;
             this.btnRemoveText.Click += new System.EventHandler(this.btnRemoveText_Click);
             // 
