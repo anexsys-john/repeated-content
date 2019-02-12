@@ -88,34 +88,6 @@ namespace RepeatedContent
                 }
             }
             return removedLines;
-
-            //int count = Files.Count();
-            //int i = 1;
-            //foreach (string file in Files)
-            //{
-            //    using (StreamWriter sw = new StreamWriter("test"))
-            //    {
-            //        using (StreamReader sr = new StreamReader(file))
-            //        {
-            //            string line;
-            //            while ((line = sr.ReadLine()) != null)
-            //            {
-            //                if (!testLines.Select(item => item.Content).ToList().Contains(line))
-            //                {
-            //                    sw.WriteLine(line);
-            //                }
-            //                else
-            //                {
-            //                    removedLines.Add(new RemovedLine(line, file));
-            //                }
-            //            }
-            //        }
-            //    }
-            //    File.Delete(file);
-            //    File.Move("test", file);
-            //    worker.ReportProgress((int)(i / (decimal)count * 100));
-            //    i++;
-            //}
         }
 
         private void GetHeaders()
