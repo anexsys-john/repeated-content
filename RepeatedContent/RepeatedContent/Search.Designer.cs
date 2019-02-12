@@ -41,13 +41,13 @@
             this.btnFoundToRemoveAll = new System.Windows.Forms.Button();
             this.btnRemoveToFound = new System.Windows.Forms.Button();
             this.btnRemoveToFoundAll = new System.Windows.Forms.Button();
-            this.tbOutputWindow = new System.Windows.Forms.TextBox();
             this.nudMinimumLineCount = new System.Windows.Forms.NumericUpDown();
             this.lbMinimumLineCount = new System.Windows.Forms.Label();
             this.lbLinesFound = new System.Windows.Forms.Label();
             this.lbLinesToRemove = new System.Windows.Forms.Label();
             this.lbOutput = new System.Windows.Forms.Label();
             this.bwRemoveHeaders = new System.ComponentModel.BackgroundWorker();
+            this.rtbOutput = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumLineCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,16 +181,6 @@
             this.btnRemoveToFoundAll.UseVisualStyleBackColor = true;
             this.btnRemoveToFoundAll.Click += new System.EventHandler(this.btnRemoveToFoundAll_Click);
             // 
-            // tbOutputWindow
-            // 
-            this.tbOutputWindow.Location = new System.Drawing.Point(12, 408);
-            this.tbOutputWindow.Multiline = true;
-            this.tbOutputWindow.Name = "tbOutputWindow";
-            this.tbOutputWindow.ReadOnly = true;
-            this.tbOutputWindow.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutputWindow.Size = new System.Drawing.Size(784, 131);
-            this.tbOutputWindow.TabIndex = 2;
-            // 
             // nudMinimumLineCount
             // 
             this.nudMinimumLineCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -249,12 +239,23 @@
             this.lbOutput.TabIndex = 18;
             this.lbOutput.Text = "Output";
             // 
+            // rtbOutput
+            // 
+            this.rtbOutput.Location = new System.Drawing.Point(12, 408);
+            this.rtbOutput.Name = "rtbOutput";
+            this.rtbOutput.ReadOnly = true;
+            this.rtbOutput.Size = new System.Drawing.Size(784, 164);
+            this.rtbOutput.TabIndex = 19;
+            this.rtbOutput.Text = "";
+            this.rtbOutput.TextChanged += new System.EventHandler(this.rtbOutput_TextChanged);
+            // 
             // Search
             // 
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1196, 643);
+            this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.lbOutput);
             this.Controls.Add(this.lbLinesToRemove);
             this.Controls.Add(this.lbLinesFound);
@@ -269,7 +270,6 @@
             this.Controls.Add(this.btnDirectorySearch);
             this.Controls.Add(this.btnRemoveText);
             this.Controls.Add(this.pbRepeatedSearchProgress);
-            this.Controls.Add(this.tbOutputWindow);
             this.Controls.Add(this.tbFileInput);
             this.Controls.Add(this.btnSearch);
             this.Name = "Search";
@@ -295,13 +295,13 @@
         private System.Windows.Forms.Button btnFoundToRemoveAll;
         private System.Windows.Forms.Button btnRemoveToFound;
         private System.Windows.Forms.Button btnRemoveToFoundAll;
-        private System.Windows.Forms.TextBox tbOutputWindow;
         private System.Windows.Forms.NumericUpDown nudMinimumLineCount;
         private System.Windows.Forms.Label lbMinimumLineCount;
         private System.Windows.Forms.Label lbLinesFound;
         private System.Windows.Forms.Label lbLinesToRemove;
         private System.Windows.Forms.Label lbOutput;
         private System.ComponentModel.BackgroundWorker bwRemoveHeaders;
+        private System.Windows.Forms.RichTextBox rtbOutput;
     }
 }
 
