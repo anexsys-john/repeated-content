@@ -17,7 +17,7 @@ namespace RepeatedContent
 
         public override string ToString()
         {
-            return $"[{Count}] {Content}";
+            return $"[{Count}] >>>{Content}<<<";
         }
     }
 }
