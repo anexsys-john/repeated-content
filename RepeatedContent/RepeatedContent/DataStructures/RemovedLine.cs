@@ -10,7 +10,7 @@ namespace RepeatedContent
     {
         public string File { get; }
         
-        public RemovedLine(string content, string file) : base(content)
+        public RemovedLine(string content, string file, string parentFile) : base(content, parentFile)
         {
             File = file;
         }

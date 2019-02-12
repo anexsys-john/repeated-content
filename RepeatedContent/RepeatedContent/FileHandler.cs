@@ -13,14 +13,14 @@ namespace RepeatedContent
         private string DirectoryPath;
         public List<string> Files { get; }
         private List<string> Headers = new List<string>();
-        public List<string> LinesFromFiles { get; }
+        public List<Line> LinesFromFiles { get; }
         private List<string> NestedDirectories = new List<string>();
         private ErrorReporter Reporter;
 
         public FileHandler(string directoryPath, ErrorReporter reporter)
         {
             Reporter = reporter;
-            LinesFromFiles = new List<string>();
+            LinesFromFiles = new List<Line>();
             Files = new List<string>();
             DirectoryPath = directoryPath;
             try
@@ -47,43 +47,75 @@ namespace RepeatedContent
         public List<RepeatedLine> GetRepeatedLines(BackgroundWorker worker, int limit)
         {
             GetLines(worker);
-            return LinesFromFiles.GroupBy(x => x)
+            return LinesFromFiles.GroupBy(x => x.Content)
                         .Where(group => group.Count() >= limit)
-                        .Select(group => new RepeatedLine(group.Count(), group.Key))
+                        .Select(group => new RepeatedLine(group.Count(), group.Key, new HashSet<string>(group.Select(line => line.ParentFile)).ToList()))
                         .ToList();
         }
 
-        public List<RemovedLine> RemoveLinesFromFiles(BackgroundWorker worker, List<RepeatedLine> testLines) // returns the lines that were removed
+        public List<Line> RemoveLinesFromFiles(BackgroundWorker worker, List<RepeatedLine> testLines) // returns the lines that were removed
         {
-            int count = Files.Count();
+            int count = testLines.Sum(x => x.ParentFiles.Count);
             int i = 1;
-            List<RemovedLine> removedLines = new List<RemovedLine>();
-            foreach (string file in Files)
+            List<Line> removedLines = new List<Line>();
+            foreach (RepeatedLine repeatedLine in testLines)
             {
-                using (StreamWriter sw = new StreamWriter("test"))
+                foreach (string file in repeatedLine.ParentFiles)
                 {
-                    using (StreamReader sr = new StreamReader(file))
+                    using (StreamWriter sw = new StreamWriter("test"))
                     {
-                        string line;
-                        while ((line = sr.ReadLine()) != null)
+                        using (StreamReader sr = new StreamReader(file))
                         {
-                            if (!testLines.Select(item => item.Content).ToList().Contains(line))
+                            string line;
+                            while (sr.Peek() >= 0)
                             {
-                                sw.WriteLine(line);
-                            }
-                            else
-                            {
-                                removedLines.Add(new RemovedLine(line, file));
+                                line = sr.ReadLine();
+                                if (line.Equals(repeatedLine.Content))
+                                {
+                                    removedLines.Add(new Line(line, file));
+                                }
+                                else
+                                {
+                                    sw.WriteLine(line);
+                                }
                             }
                         }
                     }
+                    File.Delete(file);
+                    File.Move("test", file);
+                    worker.ReportProgress((int)(i / (decimal)count * 100));
+                    i++;
                 }
-                File.Delete(file);
-                File.Move("test", file);
-                worker.ReportProgress((int)(i / (decimal)count * 100));
-                i++;
             }
             return removedLines;
+
+            //int count = Files.Count();
+            //int i = 1;
+            //foreach (string file in Files)
+            //{
+            //    using (StreamWriter sw = new StreamWriter("test"))
+            //    {
+            //        using (StreamReader sr = new StreamReader(file))
+            //        {
+            //            string line;
+            //            while ((line = sr.ReadLine()) != null)
+            //            {
+            //                if (!testLines.Select(item => item.Content).ToList().Contains(line))
+            //                {
+            //                    sw.WriteLine(line);
+            //                }
+            //                else
+            //                {
+            //                    removedLines.Add(new RemovedLine(line, file));
+            //                }
+            //            }
+            //        }
+            //    }
+            //    File.Delete(file);
+            //    File.Move("test", file);
+            //    worker.ReportProgress((int)(i / (decimal)count * 100));
+            //    i++;
+            //}
         }
 
         private void GetHeaders()
@@ -98,7 +130,7 @@ namespace RepeatedContent
 
         }
 
-        private void DealWithHeaders(ref bool inHeaderSection, ref int newLineCount, string currentLine, int lineNumber, ref List<string> currentFileLines)
+        private void DealWithHeaders(ref bool inHeaderSection, ref int newLineCount, string currentLine, int lineNumber, ref List<string> currentFileLines, string file)
         {
             if (lineNumber == 0 && Headers.Contains(currentLine.Split(':').First().ToLower()))
             {
@@ -111,7 +143,8 @@ namespace RepeatedContent
             }
             else if (!inHeaderSection)
             {
-                LinesFromFiles.Add(currentLine);
+                //LinesFromFiles.Add(currentLine);
+                LinesFromFiles.Add(new Line(currentLine, file));
                 currentFileLines.Add(currentLine);
             }
         }
@@ -132,7 +165,7 @@ namespace RepeatedContent
                     while (sr.Peek() >= 0)
                     {
                         currentLine = sr.ReadLine();
-                        DealWithHeaders(ref inHeaderSection, ref newLineCount, currentLine, lineNumber, ref currentFileLines);
+                        DealWithHeaders(ref inHeaderSection, ref newLineCount, currentLine, lineNumber, ref currentFileLines, file);
                         lineNumber++;
                     }
                 }

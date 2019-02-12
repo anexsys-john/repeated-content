@@ -105,7 +105,9 @@ namespace RepeatedContent
         {
             Reporter.Refresh();
             Handler = new FileHandler(tbFileInput.Text, Reporter);
-            return Handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
+            List<RepeatedLine> lines = Handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
+            return lines;
+            //return Handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
         }
 
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
@@ -113,7 +115,7 @@ namespace RepeatedContent
             Reporter.Refresh();
             Handler = new FileHandler(tbFileInput.Text, Reporter);
             List<RepeatedLine> lines = lbxLinesToRemove.Items.Cast<RepeatedLine>().ToList(); // this is ALL items from list
-            List<RemovedLine> removedLines = Handler.RemoveLinesFromFiles(worker, lines);
+            List<Line> removedLines = Handler.RemoveLinesFromFiles(worker, lines);
             e.Result = removedLines;
         }
 
@@ -153,13 +155,13 @@ namespace RepeatedContent
         {
             Display.RemoveLinesFromListBox(lbxLinesToRemove, true);
             string message = "";
-            foreach (RemovedLine removedLine in (List<RemovedLine>)e.Result)
+            foreach (Line removedLine in (List<Line>)e.Result)
             {
                 int length = removedLine.Content.Length;
                 int cutOff = 50;
                 bool truncated = length > cutOff;
                 string ellipsis = (truncated ? "..." : "");
-                message += $"[{removedLine.Content.Substring(0, (truncated ? cutOff : length - 1))}{ellipsis}] has been removed from file [{removedLine.File}]";
+                message += $"[{removedLine.Content.Substring(0, (truncated ? cutOff : length - 1))}{ellipsis}] has been removed from file [{removedLine.ParentFile}]";
                 message += Environment.NewLine;
             }
             Display.AppendMessage(rtbOutput, message, "success");
