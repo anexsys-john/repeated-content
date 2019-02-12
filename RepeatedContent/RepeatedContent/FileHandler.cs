@@ -15,13 +15,22 @@ namespace RepeatedContent
         private List<string> Headers = new List<string>();
         public List<string> LinesFromFiles { get; }
         private List<string> NestedDirectories = new List<string>();
+        private ErrorReporter Reporter;
 
-        public FileHandler(string directoryPath)
+        public FileHandler(string directoryPath, ErrorReporter reporter)
         {
+            Reporter = reporter;
             LinesFromFiles = new List<string>();
             Files = new List<string>();
             DirectoryPath = directoryPath;
-            GetAllFiles(directoryPath);
+            try
+            {
+                GetAllFiles(directoryPath);
+            }
+            catch (Exception ex)
+            {
+                Reporter.SetErrorMessage(ex.Message);
+            }
             GetHeaders();
         }
 

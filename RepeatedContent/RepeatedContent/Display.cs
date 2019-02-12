@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace RepeatedContent
 {
@@ -69,12 +70,6 @@ namespace RepeatedContent
             from.DataSource = null;
         }
 
-        public void AppendOutputMessage(TextBox textBox, string message)
-        {
-            textBox.AppendText(message);
-            textBox.AppendText(Environment.NewLine);
-        }
-
         public void ClearListBox(ListBox listBox)
         {
             listBox.DataSource = null;
@@ -83,6 +78,25 @@ namespace RepeatedContent
         public void ClearOutputMessage(TextBox textBox)
         {
             textBox.Clear();
+        }
+
+        public void AppendMessage(RichTextBox box, string message, string type = "")
+        {
+            Color color;
+            switch (type.ToLower())
+            {
+                case "success":
+                    color = Color.Green;
+                    break;
+                case "error":
+                    color = Color.Red;
+                    break;
+                default:
+                    color = Color.Black;
+                    break;
+            }
+            box.AppendText(message, color);
+            box.AppendText(Environment.NewLine);
         }
 
         private void SortListBox(ListBox listBox)

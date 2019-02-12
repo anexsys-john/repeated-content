@@ -13,13 +13,15 @@ namespace RepeatedContent
 {
     public partial class Search : Form
     {
-        private FileHandler handler;
-        private Display display;
+        private FileHandler Handler;
+        private Display Display;
+        private ErrorReporter Reporter;
 
         public Search()
         {
             InitializeComponent();
-            display = new Display();
+            Display = new Display();
+            Reporter = new ErrorReporter();
         }
 
         private void tbFileInput_Enter(object sender, EventArgs e)
@@ -45,10 +47,10 @@ namespace RepeatedContent
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            display.ClearListBox(lbxLinesFound);
-            display.ClearListBox(lbxLinesToRemove);
+            Display.ClearListBox(lbxLinesFound);
+            Display.ClearListBox(lbxLinesToRemove);
             string message = $"Searching for repeated lines in {tbFileInput.Text}";
-            display.AppendOutputMessage(tbOutputWindow, message);
+            Display.AppendMessage(rtbOutput, message);
             if (bwRepeatedSearch.IsBusy == false)
             {
                 bwRepeatedSearch.RunWorkerAsync();
@@ -57,27 +59,28 @@ namespace RepeatedContent
 
         private void btnFoundToRemove_Click(object sender, EventArgs e)
         {
-            display.MoveSelection(lbxLinesFound, lbxLinesToRemove);
+            Display.MoveSelection(lbxLinesFound, lbxLinesToRemove);
         }
 
         private void btnRemoveToFound_Click(object sender, EventArgs e)
         {
-            display.MoveSelection(lbxLinesToRemove, lbxLinesFound);
+            Display.MoveSelection(lbxLinesToRemove, lbxLinesFound);
         }
 
         private void btnFoundToRemoveAll_Click(object sender, EventArgs e)
         {
-            display.MoveAll(lbxLinesFound, lbxLinesToRemove);
+            Display.MoveAll(lbxLinesFound, lbxLinesToRemove);
         }
 
         private void btnRemoveToFoundAll_Click(object sender, EventArgs e)
         {
-            display.MoveAll(lbxLinesToRemove, lbxLinesFound);
+            Display.MoveAll(lbxLinesToRemove, lbxLinesFound);
         }
 
         private void btnRemoveText_Click(object sender, EventArgs e)
         {
-            //tbOutputWindow.Clear();
+            string message = "Removing selected lines from all files";
+            Display.AppendMessage(rtbOutput, message);
             if (bwRemoveLines.IsBusy == false)
             {
                 bwRemoveLines.RunWorkerAsync();
@@ -92,17 +95,25 @@ namespace RepeatedContent
             }
         }
 
+        private void rtbOutput_TextChanged(object sender, EventArgs e)
+        {
+            rtbOutput.SelectionStart = rtbOutput.Text.Length;
+            rtbOutput.ScrollToCaret();
+        }
+
         private List<RepeatedLine> searchForRepeats(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            handler = new FileHandler(tbFileInput.Text);
-            return handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
+            Reporter.Refresh();
+            Handler = new FileHandler(tbFileInput.Text, Reporter);
+            return Handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
         }
 
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
         {
-            handler = new FileHandler(tbFileInput.Text);
+            Reporter.Refresh();
+            Handler = new FileHandler(tbFileInput.Text, Reporter);
             List<RepeatedLine> lines = lbxLinesToRemove.Items.Cast<RepeatedLine>().ToList(); // this is ALL items from list
-            List<RemovedLine> removedLines = handler.RemoveLinesFromFiles(worker, lines);
+            List<RemovedLine> removedLines = Handler.RemoveLinesFromFiles(worker, lines);
             e.Result = removedLines;
         }
 
@@ -114,9 +125,16 @@ namespace RepeatedContent
 
         private void bwRepeatedSearch_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            display.AddLinesToListBox(lbxLinesFound, (List<RepeatedLine>)e.Result);
-            string message = $"Finished searching {tbFileInput.Text}";
-            display.AppendOutputMessage(tbOutputWindow, message);
+            if (Reporter.HasError)
+            {
+                Display.AppendMessage(rtbOutput, Reporter.Message, "error");
+            }
+            else
+            {
+                Display.AddLinesToListBox(lbxLinesFound, (List<RepeatedLine>)e.Result);
+                string message = $"Finished searching {tbFileInput.Text}";
+                Display.AppendMessage(rtbOutput, message, "success");
+            }
         }
 
         private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -133,7 +151,7 @@ namespace RepeatedContent
 
         private void bwRemoveLines_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            display.RemoveLinesFromListBox(lbxLinesToRemove, true);
+            Display.RemoveLinesFromListBox(lbxLinesToRemove, true);
             string message = "";
             foreach (RemovedLine removedLine in (List<RemovedLine>)e.Result)
             {
@@ -144,7 +162,7 @@ namespace RepeatedContent
                 message += $"[{removedLine.Content.Substring(0, (truncated ? cutOff : length - 1))}{ellipsis}] has been removed from file [{removedLine.File}]";
                 message += Environment.NewLine;
             }
-            display.AppendOutputMessage(tbOutputWindow, message);
+            Display.AppendMessage(rtbOutput, message, "success");
         }
 
         private void bwRemoveLines_ProgressChanged(object sender, ProgressChangedEventArgs e)
