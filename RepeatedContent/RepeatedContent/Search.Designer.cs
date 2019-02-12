@@ -121,6 +121,7 @@
             // 
             this.lbxLinesFound.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbxLinesFound.FormattingEnabled = true;
+            this.lbxLinesFound.HorizontalScrollbar = true;
             this.lbxLinesFound.Location = new System.Drawing.Point(12, 105);
             this.lbxLinesFound.Name = "lbxLinesFound";
             this.lbxLinesFound.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
@@ -131,6 +132,7 @@
             // 
             this.lbxLinesToRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbxLinesToRemove.FormattingEnabled = true;
+            this.lbxLinesToRemove.HorizontalScrollbar = true;
             this.lbxLinesToRemove.Location = new System.Drawing.Point(436, 105);
             this.lbxLinesToRemove.Name = "lbxLinesToRemove";
             this.lbxLinesToRemove.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
