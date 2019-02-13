@@ -101,7 +101,7 @@ namespace RepeatedContent
 
         private void SortListBox(ListBox listBox)
         {
-            listBox.SortBy<RepeatedLine>(line => line.Count);
+            listBox.SortByDescending<RepeatedLine>(line => line.Count).ThenSortBy(line => line.Content, listBox);
         }
     }
 }

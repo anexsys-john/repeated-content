@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchFilter.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Display.cs" />
     <Compile Include="ErrorReporter.cs" />
     <Compile Include="Extension.cs" />

@@ -107,7 +107,6 @@ namespace RepeatedContent
             Handler = new FileHandler(tbFileInput.Text, Reporter);
             List<RepeatedLine> lines = Handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
             return lines;
-            //return Handler.GetRepeatedLines(worker, (Int32)nudMinimumLineCount.Value);
         }
 
         private void removeLines(BackgroundWorker worker, DoWorkEventArgs e)
@@ -171,6 +170,130 @@ namespace RepeatedContent
         {
             int completion = e.ProgressPercentage;
             pbRepeatedSearchProgress.Value = completion;
+        }
+
+        private void sortFoundLines()
+        {
+            if (cbxAlphaPriority.Checked)
+            {
+                if (cbxAlphaAscending.Checked)
+                {
+                    if(cbxNumericAscending.Checked)
+                    {
+                        lbxLinesFound.SortBy<RepeatedLine>(line => line.Content).ThenSortBy(line => line.Count, lbxLinesFound);
+                    }
+                    else
+                    {
+                        lbxLinesFound.SortBy<RepeatedLine>(line => line.Content).ThenSortByDescending(line => line.Count, lbxLinesFound);
+                    }
+                }
+                else
+                {
+                    if(cbxNumericAscending.Checked)
+                    {
+                        lbxLinesFound.SortByDescending<RepeatedLine>(line => line.Content).ThenSortBy(line => line.Count, lbxLinesFound);
+                    }
+                    else
+                    {
+                        lbxLinesFound.SortByDescending<RepeatedLine>(line => line.Content).ThenSortByDescending(line => line.Count, lbxLinesFound);
+                    }
+                }
+            }
+            else
+            {
+                if (cbxAlphaAscending.Checked)
+                {
+                    if(cbxNumericAscending.Checked)
+                    {
+                        lbxLinesFound.SortBy<RepeatedLine>(line => line.Count).ThenSortBy(line => line.Content, lbxLinesFound);
+                    }
+                    else
+                    {
+                        lbxLinesFound.SortByDescending<RepeatedLine>(line => line.Count).ThenSortBy(line => line.Content, lbxLinesFound);
+                    }
+                }
+                else
+                {
+                    if(cbxNumericAscending.Checked)
+                    {
+                        lbxLinesFound.SortBy<RepeatedLine>(line => line.Count).ThenSortByDescending(line => line.Content, lbxLinesFound);
+                    }
+                    else
+                    {
+                        lbxLinesFound.SortByDescending<RepeatedLine>(line => line.Count).ThenSortByDescending(line => line.Content, lbxLinesFound);
+                    }
+                }
+            }
+        }
+
+        private void cbxAlphaAscendingFound_Click(object sender, EventArgs e)
+        {
+            cbxAlphaAscending.Checked = !cbxAlphaAscending.Checked;
+            if (!cbxAlphaAscending.Checked)
+            {
+                cbxAlphaDescending.Checked = false;
+                cbxAlphaAscending.Checked = true;
+                sortFoundLines();
+            }
+        }
+
+        private void cbxAlphaDescendingFound_Click(object sender, EventArgs e)
+        {
+            cbxAlphaDescending.Checked = !cbxAlphaDescending.Checked;
+            if (!cbxAlphaDescending.Checked)
+            {
+                cbxAlphaAscending.Checked = false;
+                cbxAlphaDescending.Checked = true;
+                sortFoundLines();
+            }
+        }
+
+        private void cbxNumericAscendingFound_Click(object sender, EventArgs e)
+        {
+            cbxNumericAscending.Checked = !cbxNumericAscending.Checked;
+            if (!cbxNumericAscending.Checked)
+            {
+                cbxNumericDescending.Checked = false;
+                cbxNumericAscending.Checked = true;
+                sortFoundLines();
+            }
+        }
+
+        private void cbxNumericDescendingFound_Click(object sender, EventArgs e)
+        {
+            cbxNumericDescending.Checked = !cbxNumericDescending.Checked;
+            if (!cbxNumericDescending.Checked)
+            {
+                cbxNumericAscending.Checked = false;
+                cbxNumericDescending.Checked = true;
+                sortFoundLines();
+            }
+        }
+
+        private void cbxAlphaPriority_Click(object sender, EventArgs e)
+        {
+            cbxAlphaPriority.Checked = !cbxAlphaPriority.Checked;
+            if (!cbxAlphaPriority.Checked)
+            {
+                cbxNumericPriority.Checked = false;
+                cbxAlphaPriority.Checked = true;
+                cbxNumericPriority.Text = "Secondary";
+                cbxAlphaPriority.Text = "Primary";
+                sortFoundLines();
+            }
+        }
+
+        private void cbxNumericPriority_Click(object sender, EventArgs e)
+        {
+            cbxNumericPriority.Checked = !cbxNumericPriority.Checked;
+            if (!cbxNumericPriority.Checked)
+            {
+                cbxAlphaPriority.Checked = false;
+                cbxNumericPriority.Checked = true;
+                cbxAlphaPriority.Text = "Secondary";
+                cbxNumericPriority.Text = "Primary";
+                sortFoundLines();
+            }
         }
     }
 }

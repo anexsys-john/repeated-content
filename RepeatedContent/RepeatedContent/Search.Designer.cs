@@ -48,6 +48,13 @@
             this.lbOutput = new System.Windows.Forms.Label();
             this.bwRemoveHeaders = new System.ComponentModel.BackgroundWorker();
             this.rtbOutput = new System.Windows.Forms.RichTextBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.cbxAlphaAscending = new System.Windows.Forms.CheckBox();
+            this.cbxAlphaDescending = new System.Windows.Forms.CheckBox();
+            this.cbxNumericAscending = new System.Windows.Forms.CheckBox();
+            this.cbxNumericDescending = new System.Windows.Forms.CheckBox();
+            this.cbxNumericPriority = new System.Windows.Forms.CheckBox();
+            this.cbxAlphaPriority = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumLineCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -235,7 +242,7 @@
             // 
             this.lbOutput.AutoSize = true;
             this.lbOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbOutput.Location = new System.Drawing.Point(12, 389);
+            this.lbOutput.Location = new System.Drawing.Point(12, 448);
             this.lbOutput.Name = "lbOutput";
             this.lbOutput.Size = new System.Drawing.Size(52, 16);
             this.lbOutput.TabIndex = 18;
@@ -243,7 +250,7 @@
             // 
             // rtbOutput
             // 
-            this.rtbOutput.Location = new System.Drawing.Point(12, 408);
+            this.rtbOutput.Location = new System.Drawing.Point(12, 467);
             this.rtbOutput.Name = "rtbOutput";
             this.rtbOutput.ReadOnly = true;
             this.rtbOutput.Size = new System.Drawing.Size(784, 164);
@@ -251,12 +258,102 @@
             this.rtbOutput.Text = "";
             this.rtbOutput.TextChanged += new System.EventHandler(this.rtbOutput_TextChanged);
             // 
+            // cbxAlphaAscending
+            // 
+            this.cbxAlphaAscending.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbxAlphaAscending.AutoSize = true;
+            this.cbxAlphaAscending.Checked = true;
+            this.cbxAlphaAscending.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxAlphaAscending.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbxAlphaAscending.Location = new System.Drawing.Point(299, 382);
+            this.cbxAlphaAscending.Name = "cbxAlphaAscending";
+            this.cbxAlphaAscending.Size = new System.Drawing.Size(37, 23);
+            this.cbxAlphaAscending.TabIndex = 20;
+            this.cbxAlphaAscending.Text = "A..Z";
+            this.cbxAlphaAscending.UseVisualStyleBackColor = true;
+            this.cbxAlphaAscending.Click += new System.EventHandler(this.cbxAlphaAscendingFound_Click);
+            // 
+            // cbxAlphaDescending
+            // 
+            this.cbxAlphaDescending.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbxAlphaDescending.AutoSize = true;
+            this.cbxAlphaDescending.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbxAlphaDescending.Location = new System.Drawing.Point(335, 382);
+            this.cbxAlphaDescending.Name = "cbxAlphaDescending";
+            this.cbxAlphaDescending.Size = new System.Drawing.Size(37, 23);
+            this.cbxAlphaDescending.TabIndex = 21;
+            this.cbxAlphaDescending.Text = "Z..A";
+            this.cbxAlphaDescending.UseVisualStyleBackColor = true;
+            this.cbxAlphaDescending.Click += new System.EventHandler(this.cbxAlphaDescendingFound_Click);
+            // 
+            // cbxNumericAscending
+            // 
+            this.cbxNumericAscending.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbxNumericAscending.AutoSize = true;
+            this.cbxNumericAscending.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbxNumericAscending.Location = new System.Drawing.Point(12, 382);
+            this.cbxNumericAscending.Name = "cbxNumericAscending";
+            this.cbxNumericAscending.Size = new System.Drawing.Size(44, 23);
+            this.cbxNumericAscending.TabIndex = 22;
+            this.cbxNumericAscending.Text = "123...";
+            this.cbxNumericAscending.UseVisualStyleBackColor = true;
+            this.cbxNumericAscending.Click += new System.EventHandler(this.cbxNumericAscendingFound_Click);
+            // 
+            // cbxNumericDescending
+            // 
+            this.cbxNumericDescending.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbxNumericDescending.AutoSize = true;
+            this.cbxNumericDescending.Checked = true;
+            this.cbxNumericDescending.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxNumericDescending.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbxNumericDescending.Location = new System.Drawing.Point(55, 382);
+            this.cbxNumericDescending.Name = "cbxNumericDescending";
+            this.cbxNumericDescending.Size = new System.Drawing.Size(44, 23);
+            this.cbxNumericDescending.TabIndex = 23;
+            this.cbxNumericDescending.Text = "...321";
+            this.cbxNumericDescending.UseVisualStyleBackColor = true;
+            this.cbxNumericDescending.Click += new System.EventHandler(this.cbxNumericDescendingFound_Click);
+            // 
+            // cbxNumericPriority
+            // 
+            this.cbxNumericPriority.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbxNumericPriority.AutoSize = true;
+            this.cbxNumericPriority.Checked = true;
+            this.cbxNumericPriority.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbxNumericPriority.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbxNumericPriority.Location = new System.Drawing.Point(12, 404);
+            this.cbxNumericPriority.Name = "cbxNumericPriority";
+            this.cbxNumericPriority.Size = new System.Drawing.Size(51, 23);
+            this.cbxNumericPriority.TabIndex = 25;
+            this.cbxNumericPriority.Text = "Primary";
+            this.cbxNumericPriority.UseVisualStyleBackColor = true;
+            this.cbxNumericPriority.Click += new System.EventHandler(this.cbxNumericPriority_Click);
+            // 
+            // cbxAlphaPriority
+            // 
+            this.cbxAlphaPriority.Appearance = System.Windows.Forms.Appearance.Button;
+            this.cbxAlphaPriority.AutoSize = true;
+            this.cbxAlphaPriority.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbxAlphaPriority.Location = new System.Drawing.Point(299, 404);
+            this.cbxAlphaPriority.Name = "cbxAlphaPriority";
+            this.cbxAlphaPriority.Size = new System.Drawing.Size(68, 23);
+            this.cbxAlphaPriority.TabIndex = 24;
+            this.cbxAlphaPriority.Text = "Secondary";
+            this.cbxAlphaPriority.UseVisualStyleBackColor = true;
+            this.cbxAlphaPriority.Click += new System.EventHandler(this.cbxAlphaPriority_Click);
+            // 
             // Search
             // 
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1196, 643);
+            this.Controls.Add(this.cbxNumericPriority);
+            this.Controls.Add(this.cbxAlphaPriority);
+            this.Controls.Add(this.cbxNumericDescending);
+            this.Controls.Add(this.cbxNumericAscending);
+            this.Controls.Add(this.cbxAlphaDescending);
+            this.Controls.Add(this.cbxAlphaAscending);
             this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.lbOutput);
             this.Controls.Add(this.lbLinesToRemove);
@@ -304,6 +401,13 @@
         private System.Windows.Forms.Label lbOutput;
         private System.ComponentModel.BackgroundWorker bwRemoveHeaders;
         private System.Windows.Forms.RichTextBox rtbOutput;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.CheckBox cbxAlphaAscending;
+        private System.Windows.Forms.CheckBox cbxAlphaDescending;
+        private System.Windows.Forms.CheckBox cbxNumericAscending;
+        private System.Windows.Forms.CheckBox cbxNumericDescending;
+        private System.Windows.Forms.CheckBox cbxNumericPriority;
+        private System.Windows.Forms.CheckBox cbxAlphaPriority;
     }
 }
 
