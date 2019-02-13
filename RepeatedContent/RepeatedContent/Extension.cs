@@ -13,7 +13,7 @@ namespace RepeatedContent
     {
         public static IOrderedEnumerable<TSource> SortByDescending<TSource>(this ListBox listBox, Func<TSource, object> query)
         {
-            IOrderedEnumerable<TSource> sortedItems = listBox.Items.Cast<TSource>().ToList().OrderByDescending(query);
+            IOrderedEnumerable<TSource> sortedItems = ((List<TSource>)listBox.DataSource).OrderByDescending(query);
             listBox.DataSource = null;
             listBox.DataSource = sortedItems.ToList();
             return sortedItems;
@@ -21,7 +21,7 @@ namespace RepeatedContent
 
         public static IOrderedEnumerable<TSource> SortBy<TSource>(this ListBox listBox, Func<TSource, object> query)
         {
-            IOrderedEnumerable<TSource> sortedItems = listBox.Items.Cast<TSource>().ToList().OrderBy(query);
+            IOrderedEnumerable<TSource> sortedItems = ((List<TSource>)listBox.DataSource).OrderBy(query);
             listBox.DataSource = null;
             listBox.DataSource = sortedItems.ToList();
             return sortedItems;

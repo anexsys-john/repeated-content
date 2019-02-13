@@ -11,15 +11,5 @@ namespace RepeatedContent.Tests
     [TestClass()]
     public class LineTests
     {
-        [TestMethod()]
-        public void LineTest()
-        {
-            int count = 4;
-            string content = "This is test content";
-
-            RepeatedLine line = new RepeatedLine(count, content);
-
-            Assert.IsNotNull(line);
-        }
     }
 }
