@@ -8,7 +8,7 @@ using System.Drawing;
 
 namespace RepeatedContent
 {
-    class Display
+    public class Display
     {
         public Display()
         {
