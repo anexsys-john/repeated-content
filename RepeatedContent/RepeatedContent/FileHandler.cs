@@ -12,7 +12,61 @@ namespace RepeatedContent
     {
         private string DirectoryPath;
         public List<string> Files { get; }
-        private List<string> Headers = new List<string>();
+        private List<string> Headers = new List<string>
+        {
+            "apparently-to",
+            "approved-by",
+            "authentication-results",
+            "attachments",
+            "bcc",
+            "cc",
+            "comments",
+            "content-",
+            "date",
+            "delivered-to",
+            "disposition-notification-to",
+            "dkim-signature",
+            "domainkey-signature",
+            "errors-to",
+            "followup-to",
+            "from",
+            "importance",
+            "in-reply-to",
+            "keywords",
+            "list-help",
+            "list-post",
+            "list-subscribe",
+            "list-unsubscribe",
+            "mailing-list",
+            "message-ed",
+            "message-id",
+            "mime-version",
+            "newsgroups",
+            "organization",
+            "precedence",
+            "priority",
+            "received",
+            "received-spf",
+            "references",
+            "reply-to",
+            "resent-bcc",
+            "resent-cc",
+            "resent-date",
+            "resent-from",
+            "resent-message-id",
+            "resent-reply-to",
+            "resent-sender",
+            "resent-to",
+            "return-path",
+            "sender",
+            "sent",
+            "status",
+            "subject",
+            "thread-index",
+            "thread-topic",
+            "to",
+            "user-agent"
+        };
         public List<Line> LinesFromFiles { get; }
         private List<string> NestedDirectories = new List<string>();
         private ErrorReporter Reporter;
@@ -31,7 +85,7 @@ namespace RepeatedContent
             {
                 Reporter.SetErrorMessage(ex.Message);
             }
-            GetHeaders();
+            //GetHeaders();
         }
 
         public void GetAllFiles(string directoryPath)
@@ -90,17 +144,17 @@ namespace RepeatedContent
             return removedLines;
         }
 
-        private void GetHeaders()
-        {
-            using (StreamReader sr = new StreamReader("data/headers.txt"))
-            {
-                while (sr.Peek() >= 0)
-                {
-                    Headers.Add(sr.ReadLine());
-                }
-            }
+        //private void GetHeaders()
+        //{
+        //    using (StreamReader sr = new StreamReader("data/headers.txt"))
+        //    {
+        //        while (sr.Peek() >= 0)
+        //        {
+        //            Headers.Add(sr.ReadLine());
+        //        }
+        //    }
 
-        }
+        //}
 
         private void DealWithHeaders(ref bool inHeaderSection, ref int newLineCount, string currentLine, int lineNumber, ref List<string> currentFileLines, string file)
         {

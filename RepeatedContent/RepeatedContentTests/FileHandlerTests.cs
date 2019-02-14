@@ -17,19 +17,28 @@ namespace RepeatedContent.Tests
         {
             //arrange
             Directory.SetCurrentDirectory("getAllDirectories");
-            FileHandler handler = new FileHandler(Directory.GetCurrentDirectory(), new ErrorReporter());
-            //List<string> expected = new List<string>
-            //{
-
-            //}
+            List<string> expectedFiles = new List<string>();
+            List<string> names = new List<string>
+            {
+                "1",
+                "2",
+                "test1\\1",
+                "test1\\2",
+                "test2\\1",
+                "test2\\2"
+            };
+            foreach (string file in names)
+            {
+                string newFile = $"{Directory.GetCurrentDirectory()}\\{file}.txt";
+                expectedFiles.Add(newFile);
+            }
 
             //act
-            string current = Directory.GetCurrentDirectory();
-            handler.GetAllFiles("./getAllDirectories");
+            FileHandler handler = new FileHandler(Directory.GetCurrentDirectory(), new ErrorReporter());
             List<string> actual = handler.Files;
 
             //assert
-            Assert.Fail();
+            Assert.IsTrue(actual.SequenceEqual(expectedFiles));
         }
     }
 }
