@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace RepeatedContent
 {
@@ -136,6 +137,7 @@ namespace RepeatedContent
                 string message = $"Finished searching {tbFileInput.Text}";
                 Display.AppendMessage(rtbOutput, message, "success");
             }
+            btnExportToCSV.Enabled = true;
         }
 
         private void bwRepeatedSearch_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -293,6 +295,36 @@ namespace RepeatedContent
                 cbxAlphaPriority.Text = "Secondary";
                 cbxNumericPriority.Text = "Primary";
                 sortFoundLines();
+            }
+        }
+
+        private void btnExportToCSV_Click(object sender, EventArgs e)
+        {
+            string path;
+            try
+            {
+                FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+                DialogResult result = folderDialog.ShowDialog();
+                if (string.IsNullOrEmpty(folderDialog.SelectedPath))
+                {
+                    path = "C:\\temp\\repeated_content_output.txt";
+                }
+                else
+                {
+                    path = folderDialog.SelectedPath + "\\repeated_content_output.txt";
+                }
+                using (StreamWriter sw = new StreamWriter(path))
+                {
+                    foreach (RepeatedLine line in lbxLinesToRemove.Items)
+                    {
+                        sw.WriteLine($"{line.Count},{line.Content}");
+                    }
+                };
+                Display.AppendMessage(rtbOutput, $"Repeated lines written to {path}", "success");
+            }
+            catch (Exception ex)
+            {
+                Display.AppendMessage(rtbOutput, ex.ToString(), "error");
             }
         }
     }

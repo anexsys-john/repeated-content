@@ -55,6 +55,7 @@
             this.cbxNumericDescending = new System.Windows.Forms.CheckBox();
             this.cbxNumericPriority = new System.Windows.Forms.CheckBox();
             this.cbxAlphaPriority = new System.Windows.Forms.CheckBox();
+            this.btnExportToCSV = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumLineCount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -342,12 +343,24 @@
             this.cbxAlphaPriority.UseVisualStyleBackColor = true;
             this.cbxAlphaPriority.Click += new System.EventHandler(this.cbxAlphaPriority_Click);
             // 
+            // btnExportToCSV
+            // 
+            this.btnExportToCSV.Enabled = false;
+            this.btnExportToCSV.Location = new System.Drawing.Point(701, 388);
+            this.btnExportToCSV.Name = "btnExportToCSV";
+            this.btnExportToCSV.Size = new System.Drawing.Size(94, 23);
+            this.btnExportToCSV.TabIndex = 26;
+            this.btnExportToCSV.Text = "Export to CSV";
+            this.btnExportToCSV.UseVisualStyleBackColor = true;
+            this.btnExportToCSV.Click += new System.EventHandler(this.btnExportToCSV_Click);
+            // 
             // Search
             // 
             this.AutoScroll = true;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1196, 643);
+            this.Controls.Add(this.btnExportToCSV);
             this.Controls.Add(this.cbxNumericPriority);
             this.Controls.Add(this.cbxAlphaPriority);
             this.Controls.Add(this.cbxNumericDescending);
@@ -362,7 +375,6 @@
             this.Controls.Add(this.nudMinimumLineCount);
             this.Controls.Add(this.btnRemoveToFoundAll);
             this.Controls.Add(this.btnRemoveToFound);
-            this.Controls.Add(this.btnFoundToRemoveAll);
             this.Controls.Add(this.btnFoundToRemove);
             this.Controls.Add(this.lbxLinesToRemove);
             this.Controls.Add(this.lbxLinesFound);
@@ -371,6 +383,7 @@
             this.Controls.Add(this.pbRepeatedSearchProgress);
             this.Controls.Add(this.tbFileInput);
             this.Controls.Add(this.btnSearch);
+            this.Controls.Add(this.btnFoundToRemoveAll);
             this.Name = "Search";
             this.Text = "Repeated Line Remover";
             ((System.ComponentModel.ISupportInitialize)(this.nudMinimumLineCount)).EndInit();
@@ -408,6 +421,7 @@
         private System.Windows.Forms.CheckBox cbxNumericDescending;
         private System.Windows.Forms.CheckBox cbxNumericPriority;
         private System.Windows.Forms.CheckBox cbxAlphaPriority;
+        private System.Windows.Forms.Button btnExportToCSV;
     }
 }
 
